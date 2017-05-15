@@ -22,4 +22,8 @@
  * the view is modified.
  */
 ?>
+<div class="score">
 <?php print $output; ?>
+</div>
+<div class="modifier">
+</div>

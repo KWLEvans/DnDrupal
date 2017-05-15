@@ -1,0 +1,6 @@
+name = D&Drupal
+description = Tools for character sheet app.
+package = Building Character
+core = 7.x
+files[] = ddrupal.module
+scripts[] = js/scripts.js
