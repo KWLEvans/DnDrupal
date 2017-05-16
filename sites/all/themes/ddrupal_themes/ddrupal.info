@@ -3,8 +3,8 @@ core = 7.x
 engine = phptemplate
 base theme = bartik
 
-stylesheets[all][] = css/styles.css
 stylesheets[all][] = css/layout.css
+stylesheets[all][] = css/styles.css
 
 scripts[] = js/scripts.js
 

@@ -28,14 +28,6 @@
  */
 ?>
 
-<?php
-  function setModifier($stat) {
-    $mod = floor((($stat->content)-10)/2);
-    $_SESSION[$stat->label] = $mod;
-  }
-
-?>
-
 <div class="<?php print $classes; ?>">
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
