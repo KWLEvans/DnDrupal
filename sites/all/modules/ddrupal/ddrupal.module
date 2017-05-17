@@ -27,6 +27,18 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['new_character/stats'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('stats_form'),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  $items['new_character/name'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('name_form'),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -111,6 +123,17 @@ function class_form_submit($form, &$form_state) {
   $form_state['redirect'] = 'new_character/rolls';
 }
 
+
+function element_validate_stat_range($element) {
+  $test_case = $element['#value'];
+  settype($test_case, 'float');
+  if ($test_case != floor($test_case)) {
+    form_error($element, t('Please enter a whole number.'));
+  } else if ($test_case > 18 || $test_case < 4) {
+    form_error($element, t('Your score must be between 4 and 18.'));
+  }
+}
+
 function rolls_form() {
   $form['roll1'] = array(
     '#title' => t('Roll four 6-sided dice and add the highest 3. Do this six times and enter your results.'),
@@ -162,20 +185,110 @@ function rolls_form() {
   return $form;
 }
 
-function element_validate_stat_range($element) {
-  $test_case = $element['#value'];
-  settype($test_case, 'float');
-  if ($test_case != floor($test_case)) {
-    form_error($element, t('Please enter a whole number.'));
-  } else if ($test_case > 18 || $test_case < 4) {
-    form_error($element, t('Your roll must be between 4 and 18.'));
-  }
-}
-
 function rolls_form_submit($form, &$form_state) {
   $_SESSION['new_character']['rolls'] = array();
   for ($i = 1; $i <= 6; $i++) {
     $_SESSION['new_character']['rolls'][] = $form_state['values']['roll'.$i];
   }
   $form_state['redirect'] = 'new_character/stats';
+}
+
+function stats_form() {
+  $rolls = $_SESSION['new_character']['rolls'];
+  $stat_rolls = array();
+  for ($i = 0; $i < count($rolls); $i++) {
+    $opt = new stdClass();
+    $opt->option = array($rolls[$i] => $rolls[$i]);
+    $stat_rolls[] = $opt;
+  }
+
+  $form['strength'] = array(
+    '#title' => t('Allocate your scores to each stat.'),
+    '#description' => t('Strength'),
+    '#type' => 'select',
+    '#options' => $stat_rolls,
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_stat_range'),
+  );
+
+  $form['dexterity'] = array(
+    '#description' => t('Dexterity'),
+    '#type' => 'select',
+    '#options' => $stat_rolls,
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_stat_range'),
+  );
+
+  $form['constitution'] = array(
+    '#description' => t('Constitution'),
+    '#type' => 'select',
+    '#options' => $stat_rolls,
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_stat_range'),
+  );
+
+  $form['intelligence'] = array(
+    '#description' => t('Intelligence'),
+    '#type' => 'select',
+    '#options' => $stat_rolls,
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_stat_range'),
+  );
+
+  $form['wisdom'] = array(
+    '#description' => t('Wisdom'),
+    '#type' => 'select',
+    '#options' => $stat_rolls,
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_stat_range'),
+  );
+
+  $form['charisma'] = array(
+    '#description' => t('Charisma'),
+    '#type' => 'select',
+    '#options' => $stat_rolls,
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_stat_range'),
+    );
+
+  $form['submit'] = array(
+  '#type' => 'submit',
+  '#value' => 'Save Stats',
+  );
+  return $form;
+}
+
+function stats_form_submit($form, &$form_state) {
+  $_SESSION['new_character']['strength'] = $form_state['values']['strength'];
+  $_SESSION['new_character']['dexterity'] = $form_state['values']['dexterity'];
+  $_SESSION['new_character']['constitution'] = $form_state['values']['constitution'];
+  $_SESSION['new_character']['intelligence'] = $form_state['values']['intelligence'];
+  $_SESSION['new_character']['wisdom'] = $form_state['values']['wisdom'];
+  $_SESSION['new_character']['charisma'] = $form_state['values']['charisma'];
+
+  echo '<pre>';
+  var_dump($_SESSION['new_character']);
+  echo '</pre>';
+  exit;
+
+  $form_state['redirect'] = 'new_character/skills';
+}
+
+function name_form() {
+  $form['name'] = array(
+    '#title' => t('What is your character\'s name?'),
+    '#type' => 'textfield',
+    '#required' => TRUE,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Save Name',
+  );
+  return $form;
+}
+
+function name_form_submit($form, &$form_state) {
+  $_SESSION['new_character']['name'] = $form_state['values']['name'];
+  $form_state['redirect'] = 'node/add/character';
 }
