@@ -1,5 +1,25 @@
 <?php
 
+//Character information is saved in session data values are:
+////$_SESSION
+//////['new_character']
+////////['name']: character name
+////////['bio']: optional character bio
+////////['race']: lowercased string with race name
+////////['class']: lowercased string with class name
+////////['skill_proficiency']: array of machine names for class skill proficiencies (pulled from class content type)
+////////['total_skills']: class' number of skills (pulled from class content type)
+////////['proficiency_bonus']: class' prof bonus (pulled from class content type)
+////////['rolls']: array of roll values to be assigned to stats
+////////['strength']: assigned stat value
+////////['dexterity']: assigned stat value
+////////['constitution']: assigned stat value
+////////['intelligence']: assigned stat value
+////////['wisdom']: assigned stat value
+////////['charisma']: assigned stat value
+////////['skills']: array of chosen skill proficiencies
+////////['saving_throws']: array of machine names of saving throw proficiencies
+
 function ddrupal_menu() {
   $items = array();
   $items['new_character'] = array(
@@ -39,11 +59,18 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  $items['new_character/name'] = array(
+  $items['new_character/bio'] = array(
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('name_form'),
+    'page arguments' => array('bio_form'),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
+  );
+  $items['parse'] = array(
+    'title' => 'Parse!',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('parse_form'),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
   );
   return $items;
 }
@@ -147,8 +174,15 @@ function class_form_submit($form, &$form_state) {
       $skills[] = $skill_proficiency['value'];
     }
 
-  $_SESSION['new_character']['skill_proficiency'] = $skills;
-  $_SESSION['new_character']['total_skills'] = $node->field_total_skills['und'][0]['value'];
+    $saves = array();
+    foreach ($node->field_saving_throw['und'] as $saving_throw) {
+      $saves[] = array('value' => $saving_throw['value']);
+    }
+
+    $_SESSION['new_character']['skill_proficiency'] = $skills;
+    $_SESSION['new_character']['total_skills'] = $node->field_total_skills['und'][0]['value'];
+    $_SESSION['new_character']['saving_throws'] = $saves;
+    $_SESSION['new_character']['proficiency_bonus'] = $node->field_proficiency['und'][0]['value'];
   }
 
   $form_state['redirect'] = 'new_character/rolls';
@@ -297,33 +331,139 @@ function stats_form_submit($form, &$form_state) {
   $_SESSION['new_character']['wisdom'] = $form_state['values']['wisdom'];
   $_SESSION['new_character']['charisma'] = $form_state['values']['charisma'];
 
-  echo '<pre>';
-  var_dump($_SESSION['new_character']);
-  echo '</pre>';
-  exit;
-
   $form_state['redirect'] = 'new_character/skills';
 }
 
 function skills_form() {
-  $skill_options = array();
+  $options = array();
+  $skill_options = array(
+    "field_acrobatics" => "Acrobatics",
+    "field_animal_handling" => "Animal Handling",
+    "field_arcana" => "Arcana",
+    "field_athletics" => "Athletics",
+    "field_deception" => "Deception",
+    "field_history" => "History",
+    "field_insight" => "Insight",
+    "field_intimidation" => "Intimidation",
+    "field_investigation" => "Investigation",
+    "field_medicine" => "Medicine",
+    "field_nature" => "Nature",
+    "field_perception" => "Perception",
+    "field_performance" => "Performance",
+    "field_persuasion" => "Persuasion",
+    "field_religion" => "Religion",
+    "field_sleight_of_hand" => "Sleight of Hand",
+    "field_stealth" => "Stealth",
+    "field_survival" => "Survival",
+  );
+
+  $proficiencies = $_SESSION['new_character']['skill_proficiency'];
+  foreach ($proficiencies as $proficiency) {
+    $options[$proficiency] = $skill_options[$proficiency];
+  }
+
+  //Set number of skills to total skills defined by class
+  $range = drupal_map_assoc(array($_SESSION['new_character']['total_skills']));
+  $number_of_skills = array(FIELD_CARDINALITY_UNLIMITED => t('Unlimited')) + $range;
+  $form['field']['cardinality']['#options'] = $number_of_skills;
+
+  $form['skills'] = array(
+    '#title' => t('Choose '. $_SESSION['new_character']['total_skills'] . ' skills.'),
+    '#type' => 'checkboxes',
+    '#options' => $options,
+    '#multiple' => TRUE,
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_number_of_skills'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Set Skills',
+  );
+  return $form;
 }
 
-function name_form() {
+function element_validate_number_of_skills($element) {
+  $skills = $element['#value'];
+  if (count($skills) != $_SESSION['new_character']['total_skills']) {
+    form_error($element, t('You must select ' . $_SESSION['new_character']['total_skills'] . ' skills.'));
+  }
+}
+
+function skills_form_submit($form, &$form_state) {
+  $skills = array();
+  foreach ($form_state['values']['skills'] as $skill => $is_chosen) {
+    if ($is_chosen) {
+      $skills[] = array('value' => $skill);
+    }
+  }
+  $_SESSION['new_character']['skills'] = $skills;
+  $form_state['redirect'] = 'new_character/bio';
+}
+
+function bio_form() {
   $form['name'] = array(
     '#title' => t('What is your character\'s name?'),
     '#type' => 'textfield',
     '#required' => TRUE,
   );
 
+  $form['bio'] = array(
+    '#title' => t('What is your character\'s background?'),
+    '#type' => 'textarea',
+    '#required' => TRUE,
+  );
+
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => 'Save Name',
+    '#value' => 'Save Bio',
   );
   return $form;
 }
 
-function name_form_submit($form, &$form_state) {
+function bio_form_submit($form, &$form_state) {
   $_SESSION['new_character']['name'] = $form_state['values']['name'];
-  $form_state['redirect'] = 'node/add/character';
+  $_SESSION['new_character']['bio'] = $form_state['values']['bio'];
+  // echo "<pre>";
+  // print_r($_SESSION['new_character']);
+  // echo "</pre>";
+  // exit;
+  global $user;
+  $char = $_SESSION['new_character'];
+
+  $node = new stdClass();
+  $node->title = $char['name'];
+  $node->type = 'character';
+  node_object_prepare($node);
+
+  $node->language = LANGUAGE_NONE;
+  $node->uid = $user->uid;
+  $node->status = 1;
+  $node->comment = 0;
+
+  $node->field_race['und'][0]['value'] = $char['race'];
+  $node->field_class['und'][0]['value'] = $char['class'];
+  $node->field_proficiency_bonus['und'][0]['value'] = $char['proficiency_bonus'];
+  $node->field_strength['und'][0]['value'] = $char['strength'];
+  $node->field_dexterity['und'][0]['value'] = $char['dexterity'];
+  $node->field_constitution['und'][0]['value'] = $char['constitution'];
+  $node->field_intelligence['und'][0]['value'] = $char['intelligence'];
+  $node->field_wisdom['und'][0]['value'] = $char['wisdom'];
+  $node->field_charisma['und'][0]['value'] = $char['charisma'];
+  $node->field_saving_throws['und'] = $char['saving_throws'];
+  $node->field_skills['und'] = $char['skills'];
+  $node->body['und'][0]['value'] = $char['bio'];
+
+  $node = node_submit($node);
+  node_save($node);
+
+  $form_state['redirect'] = '/node/'.$node->nid;
+}
+
+function parse_form() {
+  $node = node_load(30);
+  echo "<pre>";
+  print_r($node);
+  echo "</pre>";
+  exit;
 }
