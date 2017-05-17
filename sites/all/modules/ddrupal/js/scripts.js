@@ -2,6 +2,7 @@
   Drupal.behaviors.ddrupal = {
     attach: function (context, settings) {
 
+      //Manages score allocation <select>s for character creation
       if (window.location.pathname === '/new_character/stats') {
         $('select').once('mutual-select').change(function() {
           let selected = [];
@@ -9,8 +10,6 @@
           $('select option:selected').each(function() {
             selected.push($(this).val());
           });
-
-          console.log(selected);
 
           $('select').each(function() {
 
@@ -45,6 +44,8 @@
           });
         });
       }
+      //////////////////////////////
+
 
 
 

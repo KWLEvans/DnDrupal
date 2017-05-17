@@ -33,6 +33,12 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['new_character/skills'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('skills_form'),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   $items['new_character/name'] = array(
     'page callback' => 'drupal_get_form',
     'page arguments' => array('name_form'),
@@ -119,7 +125,32 @@ function class_form() {
 }
 
 function class_form_submit($form, &$form_state) {
-  $_SESSION['new_character']['class'] = $form_state['values']['class'];
+  $class = $form_state['values']['class'];
+  $_SESSION['new_character']['class'] = $class;
+
+  $query = new EntityFieldQuery();
+
+
+  $entities = $query->entityCondition('entity_type', 'node')
+  ->propertyCondition('type', 'class')
+  ->propertyCondition('title', $class)
+  ->propertyCondition('status', 0)
+  ->range(0,1)
+  ->execute();
+
+  if (!empty($entities['node'])) {
+    $ids = array_keys($entities['node']);
+    $nid = array_shift($ids);
+    $node = node_load($nid);
+    $skills = array();
+    foreach ($node->field_skill_proficiency['und'] as $skill_proficiency) {
+      $skills[] = $skill_proficiency['value'];
+    }
+
+  $_SESSION['new_character']['skill_proficiency'] = $skills;
+  $_SESSION['new_character']['total_skills'] = $node->field_total_skills['und'][0]['value'];
+  }
+
   $form_state['redirect'] = 'new_character/rolls';
 }
 
@@ -272,6 +303,10 @@ function stats_form_submit($form, &$form_state) {
   exit;
 
   $form_state['redirect'] = 'new_character/skills';
+}
+
+function skills_form() {
+  $skill_options = array();
 }
 
 function name_form() {
