@@ -1,4 +1,4 @@
-#stat-block, .stat-field, .stat-score, .stat-modifier, #skill-block, #saving-throws {
+.stat-field, .stat-score, #skill-block, #saving-throws {
   border: 2px solid black;
 }
 
@@ -24,21 +24,48 @@
 }
 
 #stat-block {
-  width: 20%;
+  width: 15%;
   text-align: center;
   float: left;
-  padding: 5%;
   height: 100%;
+  background-color: lightgrey;
 }
 
-/*#wrapper {
-  width: 100%;
-}*/
+#wrapper h4 {
+  text-align: center;
+}
 
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
   display: inline;
   margin-right: 1%;
 }
 
-input {
+.stat-field {
+  width: 70%;
+  margin: 21% 15%;
+  background-color: white
+}
+
+.stat-field h5 {
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+.stat-modifier {
+  font-size: 2em;
+  padding-bottom: 4%;
+  padding-top: -2%;
+}
+
+.stat-score {
+  width: 40%;
+  border-radius: 50%;
+  margin: auto;
+  z-index: 100;
+  background-color: white;
+  margin-bottom: -18%;
+}
+
+input[type='checkbox'] {
   margin-left: 4%;
+}

@@ -46,7 +46,22 @@
       }
       //////////////////////////////
 
+      //Form controls for character sheet view
+      if (window.location.pathname.match(/^\/character\//)) {
 
+        //Makes proficiency checkboxes update values
+        $('input:checkbox').once('checkbox-value-update').change(function() {
+          let proficiency = parseInt($("#proficiency div").text().match(/\d/));
+          if ($(this).is(':checked')) {
+            let val = parseInt($(this).next().text()) + proficiency;
+            $(this).next().text(val);
+          } else {
+            let val = parseInt($(this).next().text()) - proficiency;
+            $(this).next().text(val);
+          }
+        });
+
+      }
 
 
     }

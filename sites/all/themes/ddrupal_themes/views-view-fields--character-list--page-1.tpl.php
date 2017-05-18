@@ -1,5 +1,3 @@
-<?php dpm($fields) ?>
-
 <?php
 
   //array of strings in format 'field_deception'
@@ -21,13 +19,32 @@
     $saving_throw_proficiency[] = $throw['raw']['value'];
   }
 
+  function parseRace($race_html) {
+    preg_match('/>\s*(.*)\s*</', $race_html, $matches);
+    $race = $matches[1];
+    if (preg_match('/\(/', $race)) {
+      $offset = preg_match('/\((.*)\)/', $race, $matches);
+      $match = $matches[1];
+      $truncate = - (strlen($match) + 2);
+      $race = $match . ' ' . substr($race, 0, $truncate);
+    }
+    return $race;
+  }
+
+  function parseContent($content) {
+    preg_match('/>\s*(\S*)\s*</', $content, $matches);
+    return $matches[1];
+  }
 ?>
 
 <div id='wrapper'>
+  <div id="character-info">
+    <h1><?php print $fields['title']->raw . ": the " . parseRace($fields['field_race']->content) . ' ' . parseContent($fields['field_class']->content)?></h1>
+  </div>
   <div id="stat-block">
     <?php foreach ($stat_fields_to_match as $stat_field): ?>
       <div class="stat-field">
-        <h4><?php print $fields['field_'.$stat_field]->label?></h4>
+        <h5><?php print $fields['field_'.$stat_field]->label?></h5>
         <div class="stat-modifier">
           <?php print $fields['field_'.$stat_field.'_modifier']->content ?>
         </div>
@@ -43,7 +60,7 @@
       <?php print $fields['field_proficiency_bonus']->label ?>
     </div>
     <div id="saving-throws">
-      <h3>Saving Throws</h3>
+      <h4>Saving Throws</h4>
       <?php foreach($stat_fields_to_match as $stat_field): ?>
         <div class="saving-throw">
           <input type="checkbox" <?php if(in_array('field_'.$stat_field.'_save', $saving_throw_proficiency)): ?>checked="checked"<?php endif; ?>>
@@ -53,7 +70,7 @@
       <?php endforeach; ?>
     </div>
     <div id="skill-block">
-      <h3>Skills</h3>
+      <h4>Skills</h4>
       <?php foreach($skill_fields_to_match as $skill_field): ?>
         <div class="skill">
           <input type="checkbox" <?php if(in_array('field_'.$skill_field, $skill_proficiency)): ?>checked="checked"<?php endif; ?>>

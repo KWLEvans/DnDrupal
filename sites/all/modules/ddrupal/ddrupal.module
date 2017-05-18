@@ -183,6 +183,7 @@ function class_form_submit($form, &$form_state) {
     $_SESSION['new_character']['total_skills'] = $node->field_total_skills['und'][0]['value'];
     $_SESSION['new_character']['saving_throws'] = $saves;
     $_SESSION['new_character']['proficiency_bonus'] = $node->field_proficiency['und'][0]['value'];
+    $_SESSION['new_character']['hit_die'] = $node->field_hit_die['und'][0]['value'];
   }
 
   $form_state['redirect'] = 'new_character/rolls';
@@ -454,10 +455,16 @@ function bio_form_submit($form, &$form_state) {
   $node->field_skills['und'] = $char['skills'];
   $node->body['und'][0]['value'] = $char['bio'];
 
+  //Set starting hitpoints
+  $constitution = $char['constitution'];
+  $const_mod = floor(($constitution-10)/2);
+  $hit_points = $char['hit_die'] + $const_mod;
+  $node->field_hit_points['und'][0]['value'] = $hit_points;
+
   $node = node_submit($node);
   node_save($node);
 
-  $form_state['redirect'] = '/node/'.$node->nid;
+  $form_state['redirect'] = '/character/'.$node->nid;
 }
 
 function parse_form() {
