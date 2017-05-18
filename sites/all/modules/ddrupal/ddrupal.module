@@ -65,13 +65,6 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  $items['parse'] = array(
-    'title' => 'Parse!',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('parse_form'),
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
-  );
   return $items;
 }
 
@@ -195,7 +188,7 @@ function element_validate_stat_range($element) {
   settype($test_case, 'float');
   if ($test_case != floor($test_case)) {
     form_error($element, t('Please enter a whole number.'));
-  } else if ($test_case > 18 || $test_case < 4) {
+  } else if ($test_case > 18 || $test_case < 3) {
     form_error($element, t('Your score must be between 4 and 18.'));
   }
 }
@@ -465,12 +458,4 @@ function bio_form_submit($form, &$form_state) {
   node_save($node);
 
   $form_state['redirect'] = '/character/'.$node->nid;
-}
-
-function parse_form() {
-  $node = node_load(30);
-  echo "<pre>";
-  print_r($node);
-  echo "</pre>";
-  exit;
 }
