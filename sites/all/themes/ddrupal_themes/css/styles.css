@@ -13,7 +13,7 @@
   background-color: white;
   z-index: 100;
   position: relative;
-  left: -10px; 
+  left: -10px;
 }
 
 #skill-throw-block {
@@ -42,4 +42,3 @@
 
 input {
   margin-left: 4%;
-}
