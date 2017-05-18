@@ -1,8 +1,45 @@
-div.views-field.view-field-title {
-  font-weight: bold;
-  display: inline-block;
+#stat-block, .stat-field, .stat-score, .stat-modifier, #skill-block, #saving-throws {
+  border: 2px solid black;
 }
 
-div.views-field.view-field-field-stat {
-  display: inline-block;
+#proficiency {
+  border: 2px solid black;
+}
+
+#proficiency div {
+  border: 2px solid black;
+  border-radius: 50%;
+  padding: 5%;
+  background-color: white;
+  z-index: 100;
+  position: relative;
+  left: -10px; 
+}
+
+#skill-throw-block {
+  float: left;
+  margin-left: 2%;
+  width: 30%;
+  height: 100%;
+}
+
+#stat-block {
+  width: 20%;
+  text-align: center;
+  float: left;
+  padding: 5%;
+  height: 100%;
+}
+
+/*#wrapper {
+  width: 100%;
+}*/
+
+.saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
+  display: inline;
+  margin-right: 1%;
+}
+
+input {
+  margin-left: 4%;
 }
