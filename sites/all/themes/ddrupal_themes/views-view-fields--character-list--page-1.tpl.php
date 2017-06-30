@@ -37,6 +37,8 @@
   }
 ?>
 
+dpm($fields);
+
 <div id='wrapper'>
   <div id="character-info">
     <h1><?php print $fields['title']->raw . ": the " . parseRace($fields['field_race']->content) . ' ' . parseContent($fields['field_class']->content)?></h1>
