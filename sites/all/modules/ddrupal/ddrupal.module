@@ -19,6 +19,7 @@
 ////////['charisma']: assigned stat value
 ////////['skills']: array of chosen skill proficiencies
 ////////['saving_throws']: array of machine names of saving throw proficiencies
+////////['racial_abilities']: array of machine names of racial_abilities
 
 function ddrupal_menu() {
   $items = array();
@@ -112,7 +113,27 @@ function race_form() {
 }
 
 function race_form_submit($form, &$form_state) {
-  $_SESSION['new_character']['race'] = $form_state['values']['race'];
+  $race = $form_state['values']['race'];
+  $_SESSION['new_character']['race'] = $race;
+
+  $query = new EntityFieldQuery();
+
+
+  $entities = $query->entityCondition('entity_type', 'node')
+  ->propertyCondition('type', 'racial_ability')
+  ->propertyCondition('field_parent_race', $race)
+  ->propertyCondition('status', 0)
+  ->execute();
+
+  if (!empty($entities['node'])) {
+    $ids = array_keys($entities['node']);
+    $abilities = array();
+    foreach($ids as $nid) {
+      $node = $node_load[$nid];
+      $abilities[] = array('value' => $node->title['und']['value']);
+    }
+    $_SESSION['new_character']['racial_abilities'] = $abilities;
+
   $form_state['redirect'] = 'new_character/class';
 }
 
@@ -418,10 +439,10 @@ function bio_form() {
 function bio_form_submit($form, &$form_state) {
   $_SESSION['new_character']['name'] = $form_state['values']['name'];
   $_SESSION['new_character']['bio'] = $form_state['values']['bio'];
-  // echo "<pre>";
-  // print_r($_SESSION['new_character']);
-  // echo "</pre>";
-  // exit;
+  echo "<pre>";
+  print_r($_SESSION['new_character']);
+  echo "</pre>";
+  exit;
   global $user;
   $char = $_SESSION['new_character'];
 
