@@ -35,9 +35,10 @@
     preg_match('/>\s*(\S*)\s*</', $content, $matches);
     return $matches[1];
   }
+
+  dpm($fields);
 ?>
 
-dpm($fields);
 
 <div id='wrapper'>
   <div id="character-info">
