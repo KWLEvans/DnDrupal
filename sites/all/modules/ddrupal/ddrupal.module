@@ -133,6 +133,7 @@ function race_form_submit($form, &$form_state) {
       $abilities[] = array('value' => $node->title['und']['value']);
     }
     $_SESSION['new_character']['racial_abilities'] = $abilities;
+}
 
   $form_state['redirect'] = 'new_character/class';
 }
