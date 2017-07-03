@@ -144,7 +144,7 @@ function race_form_submit($form, &$form_state) {
     $abilities = array();
     foreach($ids as $nid) {
       $node = node_load($nid);
-      $abilities[] = array('target_id' => $node->nid);
+      $abilities[] = array('target_id' => $node->nid, 'target_type' => 'node');
     }
     $_SESSION['new_character']['racial_abilities'] = $abilities;
   }
@@ -481,7 +481,6 @@ function bio_form_submit($form, &$form_state) {
   $node->field_skills['und'] = $char['skills'];
   $node->body['und'][0]['value'] = $char['bio'];
   $node->field_racial_abilities['und'] = $char['racial_abilities'];
-  $node->field_racial_abilities['und'][]['target_type'] = "node";
 
   //Set starting hitpoints
   $constitution = $char['constitution'];
