@@ -19,16 +19,18 @@
     $saving_throw_proficiency[] = $throw['raw']['value'];
   }
 
-  function parseRace($race_html) {
-    preg_match('/>\s*(.*)\s*</', $race_html, $matches);
-    $race = $matches[1];
-    if (preg_match('/\(/', $race)) {
-      $offset = preg_match('/\((.*)\)/', $race, $matches);
-      $match = $matches[1];
-      $truncate = - (strlen($match) + 2);
-      $race = $match . ' ' . substr($race, 0, $truncate);
-    }
-    return $race;
+  if (!function_exists('parseRace')) {
+      function parseRace($race_html) {
+          preg_match('/>\s*(.*)\s*</', $race_html, $matches);
+          $race = $matches[1];
+          if (preg_match('/\(/', $race)) {
+              $offset = preg_match('/\((.*)\)/', $race, $matches);
+              $match = $matches[1];
+              $truncate = - (strlen($match) + 2);
+              $race = $match . ' ' . substr($race, 0, $truncate);
+          }
+          return $race;
+      }
   }
 
   function parseContent($content) {
