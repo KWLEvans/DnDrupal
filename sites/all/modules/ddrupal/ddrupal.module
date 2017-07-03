@@ -115,14 +115,28 @@ function race_form() {
 function race_form_submit($form, &$form_state) {
   $race = $form_state['values']['race'];
   $_SESSION['new_character']['race'] = $race;
+  $race_id;
+  $race_query = new EntityFieldQuery();
+
+  $entities = $race_query->entityCondition('entity_type', 'node')
+  ->propertyCondition('type', 'race')
+  ->propertyCondition('title', parseRace($race))
+  ->execute();
+
+  if (!empty($entities['node'])) {
+    $ids = array_keys($entities['node']);
+    foreach($ids as $nid) {
+      $race_id = $nid;
+    }
+  }
+
 
   $query = new EntityFieldQuery();
-
 
   $entities = $query->entityCondition('entity_type', 'node')
   ->propertyCondition('type', 'racial_ability')
   ->propertyCondition('status', 0)
-  ->fieldCondition('field_parent_race', 'target_id', 55)
+  ->fieldCondition('field_parent_race', 'target_id', $race_id)
   ->execute();
 
   if (!empty($entities['node'])) {
@@ -130,13 +144,10 @@ function race_form_submit($form, &$form_state) {
     $abilities = array();
     foreach($ids as $nid) {
       $node = node_load($nid);
-      $abilities[] = array('value' => $node->title);
+      $abilities[] = array('target_id' => $node->nid);
     }
     $_SESSION['new_character']['racial_abilities'] = $abilities;
 }
-  echo "<pre>";
-  var_dump($_SESSION['new_character']);
-  echo "</pre>";
 
   $form_state['redirect'] = 'new_character/class';
 }
@@ -483,4 +494,12 @@ function bio_form_submit($form, &$form_state) {
   node_save($node);
 
   $form_state['redirect'] = '/character/'.$node->nid;
+}
+
+function parseRace($race_field) {
+  // input as wood_elf
+  // output as Wood Elf
+  $race = preg_replace('/_/', ' ', $race_field);
+  $race = ucwords($race);
+  return $race;
 }
