@@ -33,9 +33,11 @@
       }
   }
 
-  function parseContent($content) {
-    preg_match('/>\s*(\S*)\s*</', $content, $matches);
-    return $matches[1];
+  if (!function_exists('parseContent')) {
+      function parseContent($content) {
+          preg_match('/>\s*(\S*)\s*</', $content, $matches);
+          return $matches[1];
+      }
   }
 
   dpm($fields);
