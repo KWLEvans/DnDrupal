@@ -122,7 +122,7 @@ function race_form_submit($form, &$form_state) {
   $entities = $query->entityCondition('entity_type', 'node')
   ->propertyCondition('type', 'racial_ability')
     //breaking below this check db schema
-  ->propertyCondition('field_parent_race', $race)
+  ->propertyCondition('field_parent_race_target_id', 55)
   ->propertyCondition('status', 0)
   ->execute();
 
