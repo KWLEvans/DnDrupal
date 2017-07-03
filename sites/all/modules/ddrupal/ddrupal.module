@@ -130,7 +130,7 @@ function race_form_submit($form, &$form_state) {
     $ids = array_keys($entities['node']);
     $abilities = array();
     foreach($ids as $nid) {
-      $node = $node_load[$nid];
+      $node = node_load[$nid];
       $abilities[] = array('value' => $node->title['und']['value']);
     }
     $_SESSION['new_character']['racial_abilities'] = $abilities;
