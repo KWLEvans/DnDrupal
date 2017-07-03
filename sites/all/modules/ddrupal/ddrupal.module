@@ -481,6 +481,7 @@ function bio_form_submit($form, &$form_state) {
   $node->field_skills['und'] = $char['skills'];
   $node->body['und'][0]['value'] = $char['bio'];
   $node->field_racial_abilities['und'] = $char['racial_abilities'];
+  $node->field_racial_abilities['und'][]['target_type'] = "node";
 
   //Set starting hitpoints
   $constitution = $char['constitution'];
