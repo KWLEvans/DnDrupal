@@ -121,7 +121,6 @@ function race_form_submit($form, &$form_state) {
 
   $entities = $query->entityCondition('entity_type', 'node')
   ->propertyCondition('type', 'racial_ability')
-    //breaking below this check db schema
   ->propertyCondition('status', 0)
   ->fieldCondition('field_parent_race', 'target_id', 55)
   ->execute();
@@ -131,10 +130,13 @@ function race_form_submit($form, &$form_state) {
     $abilities = array();
     foreach($ids as $nid) {
       $node = node_load($nid);
-      $abilities[] = array('value' => $node->title['und']['value']);
+      $abilities[] = array('value' => $node->title);
     }
     $_SESSION['new_character']['racial_abilities'] = $abilities;
 }
+  echo "<pre>";
+  var_dump($_SESSION['new_character']);
+  echo "</pre>";
 
   $form_state['redirect'] = 'new_character/class';
 }
