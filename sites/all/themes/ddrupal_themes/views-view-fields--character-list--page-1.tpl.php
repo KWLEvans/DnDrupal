@@ -40,10 +40,7 @@
       }
   }
 
-  $ra_block = module_invoke('views', 'block_view', 'ra_block');
-
   dpm($fields);
-  dpm($ra_block);
 ?>
 
 
@@ -90,8 +87,11 @@
       <?php endforeach; ?>
     </div>
   </div>
-  <?php
-
-  print render($ra_block['content']);
-  ?>
+  <?php if ($page['racial_abilities']): ?>
+    <div id="racial-abilities">
+        <div class="section">
+            <?php print render($page['racial_abilities']); ?>
+        </div>
+    </div> <!-- /.section, /#sidebar-first -->
+  <?php endif; ?>
 </div>
