@@ -67,8 +67,9 @@
             var nid = window.location.pathname.match(/character\/(\d+)/);
             nid = nid[1];
             var basePath = window.location.pathname.match(/^(.*)\/character/);
+            console.log(basePath);
             basePath = basePath[1];
-            $.post(basePath + '/views/ajax' + nid, {view_name: 'ra_block', view_display_id: 'detail-pane', view_args: nid}, function(data) {
+            $.post(basePath + '/views/ajax/' + nid, {view_name: 'ra_block', view_display_id: 'detail-pane', view_args: nid}, function(data) {
                 console.log(data);
                 // $('#detail-pane').html(data);
             });
