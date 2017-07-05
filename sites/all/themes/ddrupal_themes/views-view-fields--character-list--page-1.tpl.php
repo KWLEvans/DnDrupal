@@ -87,4 +87,8 @@
       <?php endforeach; ?>
     </div>
   </div>
+  <?php
+  $block = module_invoke('ddrupal', 'block_view', 'ra_block');
+  print render($block['content']);
+  ?>
 </div>
