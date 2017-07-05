@@ -87,6 +87,11 @@
       <?php endforeach; ?>
     </div>
   </div>
+  <div id="detail-selectors">
+      <div class="detail-selector" id="ra-select">
+          <h4>Racial Abilities</h4>
+      </div>
+  </div>
   <div id="detail-pane">
   </div>
 </div>
