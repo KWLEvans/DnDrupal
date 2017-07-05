@@ -87,11 +87,4 @@
       <?php endforeach; ?>
     </div>
   </div>
-  <?php if ($page['racial_abilities']): ?>
-    <div id="racial-abilities">
-        <div class="section">
-            <?php print render($page['racial_abilities']); ?>
-        </div>
-    </div> <!-- /.section, /#sidebar-first -->
-  <?php endif; ?>
 </div>
