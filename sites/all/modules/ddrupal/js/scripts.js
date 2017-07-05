@@ -61,27 +61,29 @@
           }
         });
 
+
+        $('#ra-select').once('handler-added').click(function() {
+            console.log('click');
+            $.ajax({
+                url: Drupal.settings.basePath + '/views/ajax',
+                type: 'post',
+                data: {
+                    view_name: 'ra_block',
+                    view_display_id: 'detail-pane', //your display id
+                    view_args: {}, // your views arguments
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response[1] !== undefined) {
+                        console.log(response[1].data); // do something with the view
+                    }
+                }
+            });
+        });
       }
 
 
     }
   };
-  $('#ra-select').click(function() {
-      console.log('click');
-      $.ajax({
-          url: Drupal.settings.basePath + '/views/ajax',
-          type: 'post',
-          data: {
-              view_name: 'ra_block',
-              view_display_id: 'detail-pane', //your display id
-              view_args: {}, // your views arguments
-          },
-          dataType: 'json',
-          success: function (response) {
-              if (response[1] !== undefined) {
-                  console.log(response[1].data); // do something with the view
-              }
-          }
-      });
-  });
+
 })(jQuery);
