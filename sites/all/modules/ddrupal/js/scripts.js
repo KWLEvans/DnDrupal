@@ -66,6 +66,7 @@
             console.log('click');
             var nid = window.location.pathname.match(/character\/(\d+)/);
             nid = nid[1];
+            console.log(window.location);
             var basePath = window.location.match(/^(.*)\/character/);
             console.log(basePath);
             basePath = basePath[1];
