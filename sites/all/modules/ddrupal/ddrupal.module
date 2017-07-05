@@ -66,6 +66,12 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  // $items['racial_abilities/%'] = array(
+  //     'access callback' => TRUE,
+  //     'page callback' => 'racial_abilities_callback',
+  //     'page arguments' => array(1),
+  //     'type' => MENU_CALLBACK,
+  // );
   return $items;
 }
 

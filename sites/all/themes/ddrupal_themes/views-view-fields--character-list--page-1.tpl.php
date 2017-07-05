@@ -87,4 +87,6 @@
       <?php endforeach; ?>
     </div>
   </div>
+  <div id="detail-pane">
+  </div>
 </div>
