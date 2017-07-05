@@ -66,8 +66,9 @@
             console.log('click');
             var nid = window.location.pathname.match(/character\/(\d+)/);
             nid = nid[1];
-            $.get('/ra-block/' + nid, function(data) {
-                $('#detail-pane').html(data);
+            $.post(Drupal.settings.basePath + '/views/ajax' + nid, {view_name: 'ra_block', view_display_id: 'detail-pane', view_args: nid}, function(data) {
+                console.log(data);
+                // $('#detail-pane').html(data);
             });
         });
       }
