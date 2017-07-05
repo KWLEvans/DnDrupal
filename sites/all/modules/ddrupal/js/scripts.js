@@ -65,9 +65,8 @@
         $('#ra-select').once('handler-added').click(function() {
             var nid = window.location.pathname.match(/character\/(\d+)/);
             nid = nid[1];
-            $.post(window.location.origin + '/views/ajax', {view_name: 'ra_block', view_display_id: 'detail-pane', view_args: nid}, function(data) {
-                console.log(data);
-                // $('#detail-pane').html(data);
+            $.get(window.location.origin + '/racial_abilities/' + nid, function(response) {
+                console.log(response);
             });
         });
       }

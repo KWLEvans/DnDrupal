@@ -66,12 +66,12 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  // $items['racial_abilities/%'] = array(
-  //     'access callback' => TRUE,
-  //     'page callback' => 'racial_abilities_callback',
-  //     'page arguments' => array(1),
-  //     'type' => MENU_CALLBACK,
-  // );
+  $items['racial_abilities/%'] = array(
+      'access callback' => TRUE,
+      'page callback' => 'racial_abilities_callback',
+      'page arguments' => array(1),
+      'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -501,9 +501,14 @@ function bio_form_submit($form, &$form_state) {
 }
 
 function formatRace($race_field) {
-  // input as wood_elf
-  // output as Wood Elf
   $race = preg_replace('/_/', ' ', $race_field);
   $race = ucwords($race);
   return $race;
+}
+
+function racial_abilities_callback($char_id) {
+    $view = views_get_view('ra_block');
+    $view->set_arguments($char_id);
+    $view->execute;
+    ajax_deliver($view);
 }
