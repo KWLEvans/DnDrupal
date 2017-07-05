@@ -64,7 +64,9 @@
 
         $('#ra-select').once('handler-added').click(function() {
             console.log('click');
-            $.get('/ra-block', function(data) {
+            var nid = window.location.pathname.match(/character\/(\d+)/);
+            nid = nid[1];
+            $.get('/ra-block/' + nid, function(data) {
                 $('#detail-pane').html(data);
             });
         });
