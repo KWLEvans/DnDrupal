@@ -40,7 +40,10 @@
       }
   }
 
+  $ra_block = module_invoke('views', 'block_view', 'ra_block');
+
   dpm($fields);
+  dpm($ra_block);
 ?>
 
 
@@ -88,7 +91,7 @@
     </div>
   </div>
   <?php
-  $block = module_invoke('views', 'block_view', 'ra_block');
-  print render($block['content']);
+
+  print render($ra_block['content']);
   ?>
 </div>
