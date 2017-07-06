@@ -72,7 +72,7 @@
       <h4>Saving Throws</h4>
       <?php foreach($stat_fields_to_match as $stat_field): ?>
         <div class="saving-throw">
-          <input type="checkbox" <?php if(in_array('field_'.$stat_field.'_save', $saving_throw_proficiency)): ?>checked="checked"<?php endif; ?>>
+          <input type="checkbox" <?php if(in_array('field_'.$stat_field.'_save', $saving_throw_proficiency)): ?>checked="checked" disabled<?php endif; ?>>
           <?php print $fields['field_'.$stat_field.'_save']->content ?>
           <?php print ucfirst($stat_field) ?>
         </div>
@@ -82,7 +82,7 @@
       <h4>Skills</h4>
       <?php foreach($skill_fields_to_match as $skill_field): ?>
         <div class="skill">
-          <input type="checkbox" <?php if(in_array('field_'.$skill_field, $skill_proficiency)): ?>checked="checked"<?php endif; ?>>
+          <input type="checkbox" <?php if(in_array('field_'.$skill_field, $skill_proficiency)): ?>checked="checked" disabled<?php endif; ?>>
           <?php print $fields['field_'.$skill_field]->content?>
           <?php print $fields['field_'.$skill_field]->label?>
         </div>
