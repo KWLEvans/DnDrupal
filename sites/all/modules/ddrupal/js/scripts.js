@@ -71,6 +71,15 @@
                 $('#detail-pane').html(response);
             });
         });
+
+        $('#detail-pane .views-field-title-1').once('handler-added').click(function() {
+            if ($(this).next().is(':visible')) {
+                $('#detail-pane .views-field-body:visible').slideUp();
+            } else {
+                $('#detail-pane .views-field-body:visible').slideUp();
+                $(this).next().slideDown();
+            }
+        });
       }
 
 
