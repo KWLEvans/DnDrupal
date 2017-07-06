@@ -50,6 +50,12 @@
   text-align: center;
 }
 
+.detail-selector {
+    float: left;
+    border: 2px solid black;
+    display: inline-block;
+}
+
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
   display: inline;
   margin-right: 1%;
