@@ -23,7 +23,6 @@ regions[sidebar_second] = Sidebar second
 regions[triptych_first] = Triptych first
 regions[triptych_middle] = Triptych middle
 regions[triptych_last] = Triptych last
-regions[racial_abilities] = Racial Abilities
 
 regions[footer_firstcolumn] = Footer first column
 regions[footer_secondcolumn] = Footer second column

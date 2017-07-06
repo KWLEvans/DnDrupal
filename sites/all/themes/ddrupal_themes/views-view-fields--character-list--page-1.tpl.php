@@ -40,6 +40,8 @@
       }
   }
 
+  $nid = $fields['field_race']->raw;
+
   dpm($fields);
 ?>
 
@@ -93,6 +95,6 @@
       </div>
   </div>
   <div id="detail-pane">
-      <?php echo views_embed_view('racial-ability', $display_id = 'ra_block'); ?>
+      <?php echo views_embed_view('racial-ability', $display_id = 'ra_block', $nid); ?>
   </div>
 </div>
