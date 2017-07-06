@@ -66,7 +66,7 @@
             var nid = window.location.pathname.match(/character\/(\d+)/);
             nid = nid[1];
             $.get(window.location.origin + '/racial_abilities/' + nid, function(response) {
-                $('#display-pane').html(response);
+                $('#detail-pane').html(response);
             });
         });
       }
