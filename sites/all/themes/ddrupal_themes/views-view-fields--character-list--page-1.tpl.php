@@ -93,6 +93,15 @@
       <div class="detail-selector" id="ra-select">
           <h4>Racial Abilities</h4>
       </div>
+      <div class="detail-selector" id="ca-select">
+          <h4>Class Abilities</h4>
+      </div>
+      <div class="detail-selector" id="spell-select">
+          <h4>Spells</h4>
+      </div>
+      <div class="detail-selector" id="equip-select">
+          <h4>Equipment</h4>
+      </div>
   </div>
   <div id="detail-pane">
   </div>

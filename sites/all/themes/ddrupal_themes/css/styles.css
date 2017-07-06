@@ -9,6 +9,12 @@
 
 #detail-pane .views-field-body {
     display: none;
+    padding-left: 25px;
+    height: 584px;
+}
+
+#main.clearfix {
+    width: 90%;
 }
 
 #proficiency {
@@ -36,7 +42,7 @@
   width: 120px;
   text-align: center;
   float: left;
-  height: 100%;
+  height: 621px;
   background-color: lightgrey;
 }
 
