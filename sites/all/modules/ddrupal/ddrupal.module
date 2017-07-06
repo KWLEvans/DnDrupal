@@ -512,6 +512,6 @@ function racial_abilities_callback($char_id) {
     $view->set_display('ra_block');
     $view->set_arguments(array($char_id));
     $view->execute();
-    return $view;
+    return print_r($view);
 
 }
