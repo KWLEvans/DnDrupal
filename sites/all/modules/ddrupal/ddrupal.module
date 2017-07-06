@@ -516,5 +516,5 @@ function racial_abilities_callback($char_id) {
     // $view->execute();
     // return $view->preview();
 
-    print views_embed_view('racial-ability', $display_id = 'ra_block', $char_id);
+    return views_embed_view('racial-ability', $display_id = 'ra_block', $char_id);
 }
