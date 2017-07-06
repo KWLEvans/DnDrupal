@@ -506,9 +506,8 @@ function formatRace($race_field) {
   return $race;
 }
 
+//figure this out
 function racial_abilities_callback($char_id) {
-    $view = views_get_view('ra_block');
-    $view->set_arguments($char_id);
-    $view->execute;
-    ajax_deliver($view);
+    $view = views_embed_view('racial_ability', 'ra_block', $char_id);
+    return $view;
 }
