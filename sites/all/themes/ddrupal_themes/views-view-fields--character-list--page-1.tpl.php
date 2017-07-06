@@ -93,6 +93,5 @@
       </div>
   </div>
   <div id="detail-pane">
-      <?php print views_embed_view('racial_ability'); ?>
   </div>
 </div>
