@@ -5,6 +5,7 @@
 #detail-pane {
     height: 100%;
     overflow: scroll;
+    width: calc(90% - 395px);
 }
 
 #detail-pane .views-field-body {
@@ -33,7 +34,7 @@
 
 #skill-throw-block {
   float: left;
-  margin-left: 2%;
+  margin-left: 10px;
   width: 250px;
   height: 100%;
 }
@@ -54,6 +55,7 @@
     float: left;
     border: 2px solid black;
     display: inline-block;
+    width: calc((90% - 395px)/4);
 }
 
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
