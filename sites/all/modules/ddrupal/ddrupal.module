@@ -136,6 +136,13 @@ function race_form_submit($form, &$form_state) {
     }
   }
 
+  $race_node = noad_load($race_id);
+  $_SESSION['new_character']['strength'] = $race_node->field_racial_strength['und'][0]['value'];
+  $_SESSION['new_character']['dexterity'] = $race_node->field_racial_dexterity['und'][0]['value'];
+  $_SESSION['new_character']['constitution'] = $race_node->field_racial_constitution['und'][0]['value'];
+  $_SESSION['new_character']['intelligence'] = $race_node->field_racial_intelligenc['und'][0]['value'];
+  $_SESSION['new_character']['wisdom'] = $race_node->field_racial_wisdom['und'][0]['value'];
+  $_SESSION['new_character']['charisma'] = $race_node->field_racial_charisma['und'][0]['value'];
 
   $query = new EntityFieldQuery();
 
@@ -360,12 +367,12 @@ function stats_form() {
 }
 
 function stats_form_submit($form, &$form_state) {
-  $_SESSION['new_character']['strength'] = $form_state['values']['strength'];
-  $_SESSION['new_character']['dexterity'] = $form_state['values']['dexterity'];
-  $_SESSION['new_character']['constitution'] = $form_state['values']['constitution'];
-  $_SESSION['new_character']['intelligence'] = $form_state['values']['intelligence'];
-  $_SESSION['new_character']['wisdom'] = $form_state['values']['wisdom'];
-  $_SESSION['new_character']['charisma'] = $form_state['values']['charisma'];
+  $_SESSION['new_character']['strength'] += $form_state['values']['strength'];
+  $_SESSION['new_character']['dexterity'] += $form_state['values']['dexterity'];
+  $_SESSION['new_character']['constitution'] += $form_state['values']['constitution'];
+  $_SESSION['new_character']['intelligence'] += $form_state['values']['intelligence'];
+  $_SESSION['new_character']['wisdom'] += $form_state['values']['wisdom'];
+  $_SESSION['new_character']['charisma'] += $form_state['values']['charisma'];
 
   $form_state['redirect'] = 'new_character/skills';
 }

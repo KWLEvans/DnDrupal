@@ -62,7 +62,7 @@
 .detail-selector {
     border: 2px solid black;
     display: inline-block;
-    width: calc(25%-4px);
+    width: 23%;
 }
 
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
