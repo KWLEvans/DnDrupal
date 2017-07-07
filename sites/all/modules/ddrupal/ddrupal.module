@@ -140,7 +140,7 @@ function race_form_submit($form, &$form_state) {
   $_SESSION['new_character']['strength'] = $race_node->field_racial_strength['und'][0]['value'];
   $_SESSION['new_character']['dexterity'] = $race_node->field_racial_dexterity['und'][0]['value'];
   $_SESSION['new_character']['constitution'] = $race_node->field_racial_constitution['und'][0]['value'];
-  $_SESSION['new_character']['intelligence'] = $race_node->field_racial_intelligenc['und'][0]['value'];
+  $_SESSION['new_character']['intelligence'] = $race_node->field_racial_intelligence['und'][0]['value'];
   $_SESSION['new_character']['wisdom'] = $race_node->field_racial_wisdom['und'][0]['value'];
   $_SESSION['new_character']['charisma'] = $race_node->field_racial_charisma['und'][0]['value'];
 
