@@ -538,6 +538,10 @@ function bio_form_submit($form, &$form_state) {
 function formatRace($race_field) {
   $race = preg_replace('/_/', ' ', $race_field);
   $race = ucwords($race);
+  if (preg_match('/-/', $race)) {
+    $index = strpos($race, '-');
+    $race[$index + 1] = strtoupper($race[$index + 1]);
+  }
   return $race;
 }
 
