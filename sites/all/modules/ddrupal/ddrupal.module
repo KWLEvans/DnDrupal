@@ -72,6 +72,12 @@ function ddrupal_menu() {
       'page arguments' => array(1),
       'type' => MENU_CALLBACK,
   );
+  $items['class_abilities/%'] = array(
+      'access callback' => TRUE,
+      'page callback' => 'class_abilities_callback',
+      'page arguments' => array(1),
+      'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -196,6 +202,7 @@ function class_form() {
 function class_form_submit($form, &$form_state) {
   $class = $form_state['values']['class'];
   $_SESSION['new_character']['class'] = $class;
+  $class_id;
 
   $query = new EntityFieldQuery();
 
@@ -210,6 +217,7 @@ function class_form_submit($form, &$form_state) {
   if (!empty($entities['node'])) {
     $ids = array_keys($entities['node']);
     $nid = array_shift($ids);
+    $class_id = $nid;
     $node = node_load($nid);
     $skills = array();
     foreach ($node->field_skill_proficiency['und'] as $skill_proficiency) {
@@ -226,6 +234,25 @@ function class_form_submit($form, &$form_state) {
     $_SESSION['new_character']['saving_throws'] = $saves;
     $_SESSION['new_character']['proficiency_bonus'] = $node->field_proficiency['und'][0]['value'];
     $_SESSION['new_character']['hit_die'] = $node->field_hit_die['und'][0]['value'];
+  }
+
+  $query = new EntityFieldQuery();
+
+  $entities = $query->entityCondition('entity_type', 'node')
+  ->propertyCondition('type', 'class_ability')
+  ->propertyCondition('status', 0)
+  ->fieldCondition('field_class_ability_class', 'target_id', $class_id)
+  ->fieldCondition('field_class_ability_level', 'value', 1)
+  ->execute();
+
+  if (!empty($entities['node'])) {
+    $ids = array_keys($entities['node']);
+    $abilities = array();
+    foreach($ids as $nid) {
+      $node = node_load($nid);
+      $abilities[] = array('target_id' => $node->nid, 'target_type' => 'node');
+    }
+    $_SESSION['new_character']['class_abilities'] = $abilities;
   }
 
   $form_state['redirect'] = 'new_character/rolls';
@@ -494,6 +521,7 @@ function bio_form_submit($form, &$form_state) {
   $node->field_skills['und'] = $char['skills'];
   $node->body['und'][0]['value'] = $char['bio'];
   $node->field_racial_abilities['und'] = $char['racial_abilities'];
+  $node->field_class_abilities['und'] = $char['class_abilities'];
 
   //Set starting hitpoints
   $constitution = $char['constitution'];
@@ -513,12 +541,20 @@ function formatRace($race_field) {
   return $race;
 }
 
-//figure this out
 function racial_abilities_callback($char_id) {
     $view = views_get_view('racial_ability');
     $view->set_display('ra_block');
     $view->set_arguments(array($char_id));
     $view->execute();
     return print $view->preview('ra_block', $char_id);
-
 }
+
+function class_abilities_callback($char_id) {
+    $view = views_get_view('class_ability');
+    $view->set_display('ca_block');
+    $view->set_arguments(array($char_id));
+    $view->execute();
+    return print $view->preview('ca_block', $char_id);
+}
+
+//build view
