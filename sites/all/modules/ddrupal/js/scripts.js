@@ -83,7 +83,7 @@
             nid = nid[1];
             $.get(window.location.origin + '/class_abilities/' + nid, function(response) {
                 $('#detail-pane').html(response);
-                $('#detail-pane .views-field-title-1').once('handler-added').click(function() {
+                $('#detail-pane .views-field-title').once('handler-added').click(function() {
                     if ($(this).next().is(':visible')) {
                         $('#detail-pane .views-field-body:visible').slideUp();
                     } else {
