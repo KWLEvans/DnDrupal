@@ -129,10 +129,6 @@ function race_form_submit($form, &$form_state) {
   $_SESSION['new_character']['race'] = $race;
   $race_id;
 
-  print($race);
-  print(formatRace($race));
-  exit;
-
   $race_query = new EntityFieldQuery();
 
   $entities = $race_query->entityCondition('entity_type', 'node')
