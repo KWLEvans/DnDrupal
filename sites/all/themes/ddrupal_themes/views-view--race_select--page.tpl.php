@@ -27,7 +27,7 @@
  * @ingroup views_templates
  */
 
- dpm($rows);
+ // dpm($rows);
 ?>
 
 <div class="<?php print $classes; ?>">
