@@ -31,8 +31,10 @@ function ddrupal_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   $items['new_character/race'] = array(
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('race_form'),
+    // 'page callback' => 'drupal_get_form',
+    // 'page arguments' => array('race_form'),
+    'page callback' => 'race_select_callback',
+    'page arguments' => array(),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
@@ -95,33 +97,40 @@ function start_form_submit($form, &$form_state) {
   $form_state['redirect'] = 'new_character/race';
 }
 
-function race_form() {
-  $form['race'] = array(
-    '#title' => t('What race is your character?'),
-    '#type' => 'radios',
-    '#options' => array(
-      "hill_dwarf" => "Dwarf (Hill)",
-      "mountain_dwarf" => "Dwarf (Mountain)",
-      "high_elf" => "Elf (High)",
-      "wood_elf" => "Elf (Wood)",
-      "dark_elf" => "Elf (Drow)",
-      "halfling" => "Halfling",
-      "human" => "Human",
-      "dragonborn" => "Dragonborn",
-      "forest_gnome" => "Gnome (Forest)",
-      "rock_gnome" => "Gnome (Rock)",
-      "half_elf" => "Half-Elf",
-      "half_orc" => "Half-Orc",
-      "tiefling" => "Tiefling",
-    ),
-    '#required' => TRUE,
-  );
+// function race_form() {
+//   $form['race'] = array(
+//     '#title' => t('What race is your character?'),
+//     '#type' => 'radios',
+//     '#options' => array(
+//       "hill_dwarf" => "Dwarf (Hill)",
+//       "mountain_dwarf" => "Dwarf (Mountain)",
+//       "high_elf" => "Elf (High)",
+//       "wood_elf" => "Elf (Wood)",
+//       "dark_elf" => "Elf (Drow)",
+//       "halfling" => "Halfling",
+//       "human" => "Human",
+//       "dragonborn" => "Dragonborn",
+//       "forest_gnome" => "Gnome (Forest)",
+//       "rock_gnome" => "Gnome (Rock)",
+//       "half_elf" => "Half-Elf",
+//       "half_orc" => "Half-Orc",
+//       "tiefling" => "Tiefling",
+//     ),
+//     '#required' => TRUE,
+//   );
+//
+//   $form['submit'] = array(
+//     '#type' => 'submit',
+//     '#value' => 'Set Race',
+//   );
+//   return $form;
+// }
 
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => 'Set Race',
-  );
-  return $form;
+function race_select_callback($char_id) {
+    $view = views_get_view('race_select');
+    $view->set_display('block');
+    $view->execute();
+    return print $view->preview('block');
 }
 
 function race_form_submit($form, &$form_state) {
