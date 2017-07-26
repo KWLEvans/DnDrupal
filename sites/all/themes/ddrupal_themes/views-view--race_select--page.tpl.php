@@ -56,7 +56,10 @@
 
   <?php if ($rows): ?>
     <div class="view-content">
-      <?php print $rows; ?>
+      <form name="race-select-form" action='/submit_race' method="get">
+        <?php print $rows; ?>
+        <button type="submit">Set Race</button>
+      </form>
     </div>
   <?php elseif ($empty): ?>
     <div class="view-empty">

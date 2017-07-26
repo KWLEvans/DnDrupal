@@ -38,6 +38,14 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['new_character/submit_race?%'] = array(
+    // 'page callback' => 'drupal_get_form',
+    // 'page arguments' => array('race_form'),
+    'page callback' => 'race_form_submit',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   $items['new_character/class'] = array(
     'page callback' => 'drupal_get_form',
     'page arguments' => array('class_form'),
@@ -126,17 +134,9 @@ function start_form_submit($form, &$form_state) {
 //   return $form;
 // }
 
-function race_select_callback($char_id) {
-    $view = views_get_view('race_select');
-    $view->set_display('block');
-    $view->execute();
-    return print $view->preview('block');
-}
-
-function race_form_submit($form, &$form_state) {
-  $race = $form_state['values']['race'];
-  $_SESSION['new_character']['race'] = $race;
-  $race_id;
+function race_form_submit($race_id) {
+  // $_SESSION['new_character']['race'] = $race;
+  // $race_id;
 
   $race_query = new EntityFieldQuery();
 
@@ -145,20 +145,26 @@ function race_form_submit($form, &$form_state) {
   ->propertyCondition('title', formatRace($race))
   ->execute();
 
-  if (!empty($entities['node'])) {
-    $ids = array_keys($entities['node']);
-    foreach($ids as $nid) {
-      $race_id = $nid;
-    }
-  }
+  // if (!empty($entities['node'])) {
+  //   $ids = array_keys($entities['node']);
+  //   foreach($ids as $nid) {
+  //     $race_id = $nid;
+  //   }
+  // }
 
   $race_node = node_load($race_id);
+  $_SESSION['new_character']['race'] = $race_node->title['und']['value'];
   $_SESSION['new_character']['strength'] = $race_node->field_racial_strength['und'][0]['value'];
   $_SESSION['new_character']['dexterity'] = $race_node->field_racial_dexterity['und'][0]['value'];
   $_SESSION['new_character']['constitution'] = $race_node->field_racial_constitution['und'][0]['value'];
   $_SESSION['new_character']['intelligence'] = $race_node->field_racial_intelligence['und'][0]['value'];
   $_SESSION['new_character']['wisdom'] = $race_node->field_racial_wisdom['und'][0]['value'];
   $_SESSION['new_character']['charisma'] = $race_node->field_racial_charisma['und'][0]['value'];
+
+  echo '<pre>';
+  print_r($_SESSION['new_character']);
+  echo '</pre>';
+  exit;
 
   $query = new EntityFieldQuery();
 
