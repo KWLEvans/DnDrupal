@@ -49,6 +49,7 @@
       //Select controls for race select page
       if (window.location.pathname === '/new_character/race') {
         $('.race-wrapper').once('race-select-click').click(function() {
+          $("input[type='radio']").attr('checked', false);
           $(this).children('input').attr('checked', true);
           $('#set-race-button').attr('disabled', false);
         });
