@@ -46,6 +46,14 @@
       }
       //////////////////////////////
 
+      //Select controls for race select page
+      if (window.location.pathname === 'new_character/race') {
+        $('.race-wrapper').once('race-select-click').click(function() {
+          $(this).children('input').prop('checked', true);
+          $('#set-race-button').prop('disabled', false);
+        });
+      }
+
       //Form controls for character sheet view
       if (window.location.pathname.match(/^\/character\//)) {
 
@@ -61,7 +69,7 @@
           }
         });
 
-
+        //AJAX call for Racial Abilities
         $('#ra-select').once('handler-added').click(function() {
             var nid = window.location.pathname.match(/character\/(\d+)/);
             nid = nid[1];
@@ -78,6 +86,7 @@
             });
         });
 
+        //AJAX call for Class Abilities
         $('#ca-select').once('handler-added').click(function() {
             var nid = window.location.pathname.match(/character\/(\d+)/);
             nid = nid[1];

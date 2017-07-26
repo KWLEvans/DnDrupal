@@ -58,7 +58,7 @@
     <div class="view-content">
       <form name="race-select-form" action='/submit_race' method="get">
         <?php print $rows; ?>
-        <button type="submit">Set Race</button>
+        <button id="set-race-button" type="submit" disabled>Set Race</button>
       </form>
     </div>
   <?php elseif ($empty): ?>
