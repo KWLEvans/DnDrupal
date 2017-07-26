@@ -50,7 +50,7 @@
       if (window.location.pathname === '/new_character/race') {
         $('.race-wrapper').once('race-select-click').click(function() {
           var rad = $(this).children('input');
-          console.log(rad.prop('checked'));
+          console.log($(rad).prop('checked'));
         });
       }
 
