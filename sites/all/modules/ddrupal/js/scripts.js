@@ -49,7 +49,7 @@
       //Select controls for race select page
       if (window.location.pathname === '/new_character/race') {
         $('.race-wrapper').once('race-select-click').click(function() {
-          console.log($(this).children('input').prop('checked'));
+          console.log($(this).children('input')[0].prop('checked'));
         });
       }
 
