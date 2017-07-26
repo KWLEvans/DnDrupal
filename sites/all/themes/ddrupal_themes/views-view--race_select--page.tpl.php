@@ -56,7 +56,7 @@
 
   <?php if ($rows): ?>
     <div class="view-content">
-      <form name="race-select-form" action='/submit_race' method="get">
+      <form id="race-select-form" action='/submit_race' method="get">
         <?php print $rows; ?>
         <button id="set-race-button" type="submit" disabled>Set Race</button>
       </form>

@@ -72,7 +72,8 @@
 }
 
 .race-wrapper img {
-  height: 0.5em;
+  height: 60%;
+
 }
 
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
