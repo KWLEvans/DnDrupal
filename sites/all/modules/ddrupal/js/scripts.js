@@ -53,6 +53,12 @@
           $(this).children('input').attr('checked', true);
           $('#set-race-button').attr('disabled', false);
         });
+
+        $('#set-race-button').click(function(event) {
+          event.preventDefault();
+          var race_selection = $("input[type='radio']:checked")[0].val();
+          window.location.pathname = '/new_character/set_race' + race_selection;
+        });
       }
 
       //Form controls for character sheet view

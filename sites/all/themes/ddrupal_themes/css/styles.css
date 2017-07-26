@@ -43,7 +43,8 @@
 #race-select-form div {
   float: left;
   display: inline-block;
-  width: 25%;
+  width: 300px;
+
 }
 
 #skill-throw-block {
