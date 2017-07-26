@@ -56,7 +56,7 @@
 
         $('#set-race-button').click(function(event) {
           event.preventDefault();
-          var race_selection = $("input[type='radio']:checked")[0].val();
+          var race_selection = $("input[type='radio']:checked").val();
           window.location.pathname = '/new_character/set_race' + race_selection;
         });
       }
