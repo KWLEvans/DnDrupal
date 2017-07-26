@@ -65,6 +65,16 @@
     width: 23%;
 }
 
+.race-wrapper {
+  height: 400px;
+  width: 400px;
+  float: left;
+}
+
+.race-wrapper img {
+  height: 0.5em;
+}
+
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
   display: inline;
   margin-right: 1%;

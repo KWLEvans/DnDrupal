@@ -30,14 +30,12 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
-  $items['new_character/race'] = array(
-    // 'page callback' => 'drupal_get_form',
-    // 'page arguments' => array('race_form'),
-    'page callback' => 'race_select_callback',
-    'page arguments' => array(),
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
+  // $items['new_character/race'] = array(
+  //   'page callback' => 'drupal_get_form',
+  //   'page arguments' => array('race_form'),
+  //   'access callback' => TRUE,
+  //   'type' => MENU_CALLBACK,
+  // );
   $items['new_character/submit_race?%'] = array(
     // 'page callback' => 'drupal_get_form',
     // 'page arguments' => array('race_form'),
