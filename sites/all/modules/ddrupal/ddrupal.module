@@ -182,7 +182,7 @@ function race_form_submit($race_id) {
     $_SESSION['new_character']['racial_abilities'] = $abilities;
   }
 
-  $form_state['redirect'] = 'new_character/class';
+  drupal_goto('new_character/class');
 }
 
 function class_form() {
