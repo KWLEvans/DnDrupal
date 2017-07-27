@@ -269,7 +269,7 @@ function class_form_submit($class_id) {
     $_SESSION['new_character']['class_abilities'] = $abilities;
   }
 
-  $form_state['redirect'] = 'new_character/rolls';
+  drupal_goto('new_character/rolls');
 }
 
 
