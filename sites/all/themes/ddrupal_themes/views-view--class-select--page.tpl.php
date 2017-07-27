@@ -64,6 +64,7 @@
           </div>
           <?php print $rows; ?>
         </div>
+        <div class="select-details"></div>
         <button id="set-class-button" type="submit">Set Class</button>
       </form>
     </div>

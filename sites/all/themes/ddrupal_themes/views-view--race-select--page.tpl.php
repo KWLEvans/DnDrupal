@@ -63,8 +63,8 @@
             <div id='right-select-arrow'>▶</div>
           </div>
           <?php print $rows; ?>
-          <div class='select-details'>
-          </div>
+        </div>
+        <div class='select-details'>
         </div>
         <button id="set-race-button" type="submit">Set Race</button>
       </form>
