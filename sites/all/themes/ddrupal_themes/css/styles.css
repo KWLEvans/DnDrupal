@@ -2,6 +2,10 @@
   border: 2px solid black;
 }
 
+#content {
+  width: 100%;
+}
+
 #detail-pane {
     height: 90%;
     overflow: scroll;
@@ -75,9 +79,13 @@
   background-color: #202021;
 }
 
-.select-carousel img {
-  margin: 25px auto;
+.select-carousel div {
+  height: 100%;
+  width: 100%;
+}
 
+.select-carousel img {
+  margin: calc(50% - 200px) calc(50% - 175px);
 }
 
 .select-wrapper {
