@@ -65,8 +65,10 @@
           <?php print $rows; ?>
         </div>
         <div class="select-details"></div>
-        <button id="set-class-button" type="submit">Set Class</button>
       </form>
+      <div id="button-align">
+        <button id="set-class-button" type="submit">Set Class</button>
+      </div>
     </div>
   <?php elseif ($empty): ?>
     <div class="view-empty">

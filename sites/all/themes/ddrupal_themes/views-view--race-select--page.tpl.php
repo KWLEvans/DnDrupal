@@ -66,8 +66,10 @@
         </div>
         <div class='select-details'>
         </div>
-        <button id="set-race-button" type="submit">Set Race</button>
       </form>
+      <div id="button-align">
+        <button id="set-race-button" type="submit">Set Race</button>
+      </div>
     </div>
   <?php elseif ($empty): ?>
     <div class="view-empty">
