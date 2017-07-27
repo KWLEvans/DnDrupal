@@ -37,8 +37,6 @@ function ddrupal_menu() {
   //   'type' => MENU_CALLBACK,
   // );
   $items['new_character/submit_race/%'] = array(
-    // 'page callback' => 'drupal_get_form',
-    // 'page arguments' => array('race_form'),
     'page callback' => 'race_form_submit',
     'page arguments' => array(1),
     'access callback' => TRUE,
