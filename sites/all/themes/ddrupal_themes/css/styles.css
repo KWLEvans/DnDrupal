@@ -31,9 +31,13 @@
 
 #left-select-arrow, #right-select-arrow {
   position: relative;
-  top:200px;
+  top:180px;
   color: white;
-  fot-size: 4em;
+  font-size: 4em;
+}
+
+#left-select-arrow:hover, #right-select-arrow:hover {
+  font-size: 5em;
 }
 
 #left-select-arrow {
@@ -107,7 +111,9 @@
 }
 
 .select-pagers {
-  position: relative;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .select-wrapper {
