@@ -61,21 +61,21 @@
             if (!active_page.hasClass('views-row-last')) {
               setTimeout(function() {
                 active_row.next().children().fadeIn();
-              }, 500);
+              }, 400);
             } else {
               setTimeout(function() {
                 $('.views-row-first').fadeIn();
-              }, 500);
+              }, 400);
             }
           } else if (direction === 'left') {
             if (active_page.hasClass('views-row-last')) {
               setTimeout(function() {
                 active_row.prev().children().fadeIn();
-              }, 500);
+              }, 400);
             } else {
               setTimeout(function() {
                 $('.views-row-first').fadeIn();
-              }, 500);
+              }, 400);
             }
           }
 
