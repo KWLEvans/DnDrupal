@@ -57,6 +57,7 @@
           var active_row = $('div.views-row').children(':visible').parent();
           $('#set-' + path + '-button').attr('disabled', true);
           $('input[type="radio"]').attr('checked', false);
+          $('.select-details').html().fadeOut();
 
           active_page.fadeOut(400, function() {
             if (direction === 'right') {
@@ -64,11 +65,13 @@
                   active_row.next().children().fadeIn(400, function() {
                     $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
                     $('#set-' + path + '-button').attr('disabled', false);
+                    getDetails($('input[type="radio"]:checked').val());
                   });
               } else {
-                $('.views-row-first').fadeIn(400, function() {
+                $('.views-row-first').children().fadeIn(400, function() {
                   $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
                   $('#set-' + path + '-button').attr('disabled', false);
+                  getDetails($('input[type="radio"]:checked').val());
                 });
               }
             } else if (direction === 'left') {
@@ -76,11 +79,13 @@
                 active_row.prev().children().fadeIn(400, function() {
                   $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
                   $('#set-' + path + '-button').attr('disabled', false);
+                  getDetails($('input[type="radio"]:checked').val());
                 });
               } else {
-                $('.views-row-last').fadeIn(400, function() {
+                $('.views-row-last').children().fadeIn(400, function() {
                   $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
                   $('#set-' + path + '-button').attr('disabled', false);
+                  getDetails($('input[type="radio"]:checked').val());
                 });
               }
             }
@@ -102,6 +107,36 @@
           var selection = $("input[type='radio']:checked").val();
           window.location.pathname = '/new_character/submit_' + path + '/' + selection;
         });
+
+        function getDetails(id) {
+          if (path === 'race') {
+            $.get(window.location.origin + '/racial_abilities/' + id, function(response) {
+                $('.select-details').html(response);
+                $('.select-details').fadeIn();
+                $('.select-details .views-field-title-1').once('handler-added').click(function() {
+                    if ($(this).next().is(':visible')) {
+                        $('.select-details .views-field-body:visible').slideUp();
+                    } else {
+                        $('.select-details .views-field-body:visible').slideUp();
+                        $(this).next().slideDown();
+                    }
+                });
+            });
+          } else {
+            $.get(window.location.origin + '/class_abilities/' + id, function(response) {
+                $('.select-details').html(response);
+                $('.select-details').fadeIn();
+                $('.select-details .views-field-title-1').once('handler-added').click(function() {
+                    if ($(this).next().is(':visible')) {
+                        $('.select-details .views-field-body:visible').slideUp();
+                    } else {
+                        $('.select-details .views-field-body:visible').slideUp();
+                        $(this).next().slideDown();
+                    }
+                });
+            });
+          }
+        }
       }
 
       //Form controls for character sheet view
