@@ -15,7 +15,7 @@
     width: 100%;
 }
 
-#detail-pane .views-field-body {
+#detail-pane .views-field-body, .select-details .views-field-body {
     display: none;
     padding-left: 25px;
 }
