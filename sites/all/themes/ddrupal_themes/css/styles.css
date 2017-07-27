@@ -118,6 +118,7 @@
 .select-details {
   width: calc(100% - 500px);
   height: 100%;
+  display: inline-block;
 }
 
 .select-element {
@@ -131,6 +132,7 @@
 }
 
 .select-wrapper {
+  display: inline-block;
   position: relative;
   height: 80%;
   width: 500px;
