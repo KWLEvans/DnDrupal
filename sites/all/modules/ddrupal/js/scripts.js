@@ -110,7 +110,7 @@
 
         function getDetails(id) {
           if (path === 'race') {
-            $.get(window.location.origin + '/racial_abilities/' + id, function(response) {
+            $.get(window.location.origin + '/select_racial_abilities/' + id, function(response) {
                 $('.select-details').html(response);
                 $('.select-details').fadeIn();
                 $('.select-details .views-field-title-1').once('handler-added').click(function() {
@@ -123,7 +123,7 @@
                 });
             });
           } else {
-            $.get(window.location.origin + '/class_abilities/' + id, function(response) {
+            $.get(window.location.origin + '/select_class_abilities/' + id, function(response) {
                 $('.select-details').html(response);
                 $('.select-details').fadeIn();
                 $('.select-details .views-field-title-1').once('handler-added').click(function() {

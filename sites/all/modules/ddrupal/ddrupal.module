@@ -30,24 +30,24 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
-  // $items['new_character/race'] = array(
-  //   'page callback' => 'drupal_get_form',
-  //   'page arguments' => array('race_form'),
-  //   'access callback' => TRUE,
-  //   'type' => MENU_CALLBACK,
-  // );
+  $items['select_racial_abilities/%'] = array(
+      'access callback' => TRUE,
+      'page callback' => 'select_racial_abilities_callback',
+      'page arguments' => array(1),
+      'type' => MENU_CALLBACK,
+  );
   $items['new_character/submit_race/%'] = array(
     'page callback' => 'race_form_submit',
     'page arguments' => array(2),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  // $items['new_character/class'] = array(
-  //   'page callback' => 'drupal_get_form',
-  //   'page arguments' => array('class_form'),
-  //   'access callback' => TRUE,
-  //   'type' => MENU_CALLBACK,
-  // );
+  $items['select_class_abilities/%'] = array(
+      'access callback' => TRUE,
+      'page callback' => 'select_class_abilities_callback',
+      'page arguments' => array(1),
+      'type' => MENU_CALLBACK,
+  );
   $items['new_character/submit_class/%'] = array(
     'page callback' => 'class_form_submit',
     'page arguments' => array(2),
@@ -577,4 +577,18 @@ function class_abilities_callback($char_id) {
     return print $view->preview('ca_block', $char_id);
 }
 
-//build view
+function select_racial_abilities_callback($race_id) {
+    $view = views_get_view('select_racial_ability');
+    $view->set_display('block');
+    $view->set_arguments(array($race_id));
+    $view->execute();
+    return print $view->preview('block', $race_id);
+}
+
+function select_class_abilities_callback($class_id) {
+    $view = views_get_view('select_class_ability');
+    $view->set_display('block');
+    $view->set_arguments(array($class_id));
+    $view->execute();
+    return print $view->preview('block', $class_id);
+}
