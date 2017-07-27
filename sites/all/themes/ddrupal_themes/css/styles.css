@@ -32,6 +32,12 @@
 #left-select-arrow, #right-select-arrow {
   position: relative;
   top:200px;
+  color: white;
+  fot-size: 4em;
+}
+
+#left-select-arrow {
+  left: 20px;
 }
 
 #main.clearfix {
@@ -52,8 +58,8 @@
   left: -10px;
 }
 
-#race-select-form div {
-
+#right-select-arrow {
+  right: 20px;
 }
 
 #skill-throw-block {
@@ -96,6 +102,10 @@
   margin: 25px calc(50% - 175px);
 }
 
+.select-element {
+  display: none;
+}
+
 .select-pagers {
   position: relative;
 }
@@ -103,7 +113,6 @@
 .select-wrapper {
   height: 80%;
   width: 100%;
-  display: none;
 }
 
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {

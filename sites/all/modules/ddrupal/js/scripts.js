@@ -48,9 +48,9 @@
 
       //Select controls for race select page
       if (window.location.pathname === '/new_character/race') {
-        $($('.select-wrapper')[0]).show();
+        $($('.select-element')[0]).show();
 
-        $('.select-wrapper').once('race-select-click').click(function() {
+        $('.select-element').once('race-select-click').click(function() {
           $("input[type='radio']").attr('checked', false);
           $(this).children('input').attr('checked', true);
           $('#set-race-button').attr('disabled', false);
@@ -65,9 +65,9 @@
 
       //Select controls for class select page
       if (window.location.pathname === '/new_character/class') {
-        $($('.select-wrapper')[0]).show();
+        $($('.select-element')[0]).show();
 
-        $('.select-wrapper').once('class-select-click').click(function() {
+        $('.select-element').once('class-select-click').click(function() {
           $("input[type='radio']").attr('checked', false);
           $(this).children('input').attr('checked', true);
           $('#set-class-button').attr('disabled', false);
