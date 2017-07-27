@@ -51,7 +51,6 @@
         var path = window.location.pathname.substr(15);
         $($('.select-element')[0]).show();
         $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
-        getDetails($('input[type="radio"]:checked').val());
 
         function page(direction) {
           var active_page = $('div.views-row').children(':visible');
@@ -138,6 +137,7 @@
             });
           }
         }
+        getDetails($('input[type="radio"]:checked').val());
       }
 
       //Form controls for character sheet view

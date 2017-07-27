@@ -6,7 +6,7 @@
   <div class="select-carousel">
     <?php print($fields['field_class_image']->content)?>
   </div>
-  <h2><?php print($fields['title']->content)?></h2>
+  <h2><?php print(ucwords($fields['title']->raw))?></h2>
   <div class="select-flavor-text">
     <?php print($fields['field_class_flavor_text']->content)?>
   </div>
