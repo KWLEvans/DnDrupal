@@ -72,13 +72,13 @@
     width: 23%;
 }
 
-.race-wrapper {
+.select-wrapper {
   height: 400px;
   width: 400px;
   float: left;
 }
 
-.race-wrapper img {
+.select-wrapper img {
   height: 60%;
 
 }

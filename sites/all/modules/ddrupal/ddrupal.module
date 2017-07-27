@@ -42,9 +42,15 @@ function ddrupal_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
-  $items['new_character/class'] = array(
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('class_form'),
+  // $items['new_character/class'] = array(
+  //   'page callback' => 'drupal_get_form',
+  //   'page arguments' => array('class_form'),
+  //   'access callback' => TRUE,
+  //   'type' => MENU_CALLBACK,
+  // );
+  $items['new_character/submit_class/%'] = array(
+    'page callback' => 'class_form_submit',
+    'page arguments' => array(2),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
@@ -179,54 +185,54 @@ function race_form_submit($race_id) {
   drupal_goto('new_character/class');
 }
 
-function class_form() {
-  $form['class'] = array(
-    '#title' => t('What class is your character?'),
-    '#type' => 'radios',
-    '#options' => array(
-      "barbarian" => "Barbarian",
-      "bard" => "Bard",
-      "cleric" => "Cleric",
-      "druid" => "Druid",
-      "fighter" => "Fighter",
-      "monk" => "Monk",
-      "paladin" => "Paladin",
-      "ranger" => "Ranger",
-      "rogue" => "Rogue",
-      "sorcerer" => "Sorcerer",
-      "warlock" => "Warlock",
-      "wizard" => "Wizard",
-    ),
-    '#required' => TRUE,
-  );
+// function class_form() {
+//   $form['class'] = array(
+//     '#title' => t('What class is your character?'),
+//     '#type' => 'radios',
+//     '#options' => array(
+//       "barbarian" => "Barbarian",
+//       "bard" => "Bard",
+//       "cleric" => "Cleric",
+//       "druid" => "Druid",
+//       "fighter" => "Fighter",
+//       "monk" => "Monk",
+//       "paladin" => "Paladin",
+//       "ranger" => "Ranger",
+//       "rogue" => "Rogue",
+//       "sorcerer" => "Sorcerer",
+//       "warlock" => "Warlock",
+//       "wizard" => "Wizard",
+//     ),
+//     '#required' => TRUE,
+//   );
+//
+//   $form['submit'] = array(
+//     '#type' => 'submit',
+//     '#value' => 'Set Class',
+//   );
+//   return $form;
+// }
 
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => 'Set Class',
-  );
-  return $form;
-}
-
-function class_form_submit($form, &$form_state) {
-  $class = $form_state['values']['class'];
-  $_SESSION['new_character']['class'] = $class;
-  $class_id;
-
-  $query = new EntityFieldQuery();
-
-
-  $entities = $query->entityCondition('entity_type', 'node')
-  ->propertyCondition('type', 'class')
-  ->propertyCondition('title', $class)
-  ->propertyCondition('status', 0)
-  ->range(0,1)
-  ->execute();
-
-  if (!empty($entities['node'])) {
-    $ids = array_keys($entities['node']);
-    $nid = array_shift($ids);
-    $class_id = $nid;
-    $node = node_load($nid);
+function class_form_submit($class_id) {
+  // $class = $form_state['values']['class'];
+  // $_SESSION['new_character']['class'] = $class;
+  // $class_id;
+  //
+  // $query = new EntityFieldQuery();
+  //
+  //
+  // $entities = $query->entityCondition('entity_type', 'node')
+  // ->propertyCondition('type', 'class')
+  // ->propertyCondition('title', $class)
+  // ->propertyCondition('status', 0)
+  // ->range(0,1)
+  // ->execute();
+  //
+  // if (!empty($entities['node'])) {
+  //   $ids = array_keys($entities['node']);
+  //   $nid = array_shift($ids);
+  //   $class_id = $nid;
+    $node = node_load($class_id);
     $skills = array();
     foreach ($node->field_skill_proficiency['und'] as $skill_proficiency) {
       $skills[] = $skill_proficiency['value'];
@@ -242,7 +248,7 @@ function class_form_submit($form, &$form_state) {
     $_SESSION['new_character']['saving_throws'] = $saves;
     $_SESSION['new_character']['proficiency_bonus'] = $node->field_proficiency['und'][0]['value'];
     $_SESSION['new_character']['hit_die'] = $node->field_hit_die['und'][0]['value'];
-  }
+  // }
 
   $query = new EntityFieldQuery();
 
