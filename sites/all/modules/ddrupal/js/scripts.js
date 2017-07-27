@@ -72,13 +72,13 @@
                 });
               }
             } else if (direction === 'left') {
-              if (!active_page.hasClass('views-row-last')) {
-                $('.views-row-first').fadeIn(400, function() {
+              if (!active_page.hasClass('views-row-first')) {
+                active_row.prev().children().fadeIn(400, function() {
                   $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
                   $('#set-' + path + '-button').attr('disabled', false);
                 });
               } else {
-                active_row.prev().children().fadeIn(400, function() {
+                $('.views-row-last').fadeIn(400, function() {
                   $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
                   $('#set-' + path + '-button').attr('disabled', false);
                 });
