@@ -578,7 +578,7 @@ function class_abilities_callback($char_id) {
 }
 
 function select_racial_abilities_callback($race_id) {
-    $view = views_get_view('select_racial_ability');
+    $view = views_get_view('select_racial_abilities');
     $view->set_display('block');
     $view->set_arguments(array($race_id));
     $view->execute();
@@ -586,7 +586,7 @@ function select_racial_abilities_callback($race_id) {
 }
 
 function select_class_abilities_callback($class_id) {
-    $view = views_get_view('select_class_ability');
+    $view = views_get_view('select_class_abilities');
     $view->set_display('block');
     $view->set_arguments(array($class_id));
     $view->execute();
