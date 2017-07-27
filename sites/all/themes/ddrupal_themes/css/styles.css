@@ -69,15 +69,21 @@
     width: 23%;
 }
 
-.select-wrapper {
-  height: 400px;
-  width: 400px;
-  display: none;
+.select-carousel {
+  width: 100%;
+  height: 450px;
+  background-color: #202021;
 }
 
-.select-wrapper img {
-  height: 60%;
+.select-carousel img {
+  margin: 25px auto;
 
+}
+
+.select-wrapper {
+  height: 80%;
+  width: 100%;
+  display: none;
 }
 
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
