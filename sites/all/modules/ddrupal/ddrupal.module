@@ -149,6 +149,10 @@ function race_form_submit($race_id) {
   // }
 
   $race_node = node_load($race_id);
+  echo '<pre>';
+  print_r($race_node);
+  echo '</pre>';
+  exit;
   $_SESSION['new_character']['race'] = $race_node->title['und']['value'];
   $_SESSION['new_character']['strength'] = $race_node->field_racial_strength['und'][0]['value'];
   $_SESSION['new_character']['dexterity'] = $race_node->field_racial_dexterity['und'][0]['value'];
@@ -157,10 +161,6 @@ function race_form_submit($race_id) {
   $_SESSION['new_character']['wisdom'] = $race_node->field_racial_wisdom['und'][0]['value'];
   $_SESSION['new_character']['charisma'] = $race_node->field_racial_charisma['und'][0]['value'];
 
-  echo '<pre>';
-  print_r($_SESSION['new_character']);
-  echo '</pre>';
-  exit;
 
   $query = new EntityFieldQuery();
 
