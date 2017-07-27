@@ -64,7 +64,7 @@
           </div>
           <?php print $rows; ?>
         </div>
-        <button id="set-class-button" type="submit" disabled>Set Class</button>
+        <button id="set-class-button" type="submit">Set Class</button>
       </form>
     </div>
   <?php elseif ($empty): ?>

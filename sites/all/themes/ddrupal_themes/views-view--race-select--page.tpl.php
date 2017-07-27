@@ -66,7 +66,7 @@
           <div class='select-details'>
           </div>
         </div>
-        <button id="set-race-button" type="submit" disabled>Set Race</button>
+        <button id="set-race-button" type="submit">Set Race</button>
       </form>
     </div>
   <?php elseif ($empty): ?>

@@ -55,31 +55,37 @@
         function page(direction) {
           var active_page = $('div.views-row').children(':visible');
           var active_row = $('div.views-row').children(':visible').parent();
-          active_page.fadeOut();
+          $('#set-' + path + '-button').attr('disabled', true);
 
-          if (direction === 'right') {
-            if (!active_page.hasClass('views-row-last')) {
-              setTimeout(function() {
-                active_row.next().children().fadeIn();
-              }, 400);
-            } else {
-              setTimeout(function() {
-                $('.views-row-first').fadeIn();
-              }, 400);
+          active_page.fadeOut(400, function() {
+            if (direction === 'right') {
+              if (!active_page.hasClass('views-row-last')) {
+                  active_row.next().children().fadeIn(400, function() {
+                    $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
+                    $('#set-' + path + '-button').attr('disabled', false);
+                  });
+              } else {
+                $('.views-row-first').fadeIn(400, function() {
+                  $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
+                  $('#set-' + path + '-button').attr('disabled', false);
+                });
+              }
+            } else if (direction === 'left') {
+              if (active_page.hasClass('views-row-last')) {
+                active_row.prev().children().fadeIn(400, function() {
+                  $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
+                  $('#set-' + path + '-button').attr('disabled', false);
+                });
+              } else {
+                $('.views-row-first').fadeIn(400, function() {
+                  $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
+                  $('#set-' + path + '-button').attr('disabled', false);
+                });
+              }
             }
-          } else if (direction === 'left') {
-            if (active_page.hasClass('views-row-last')) {
-              setTimeout(function() {
-                active_row.prev().children().fadeIn();
-              }, 400);
-            } else {
-              setTimeout(function() {
-                $('.views-row-first').fadeIn();
-              }, 400);
-            }
-          }
 
-          $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
+            $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
+          });
         }
 
         $('#left-select-arrow').once('pager-click').click(function() {
