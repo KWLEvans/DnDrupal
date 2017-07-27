@@ -76,6 +76,7 @@
   height: 400px;
   width: 400px;
   float: left;
+  display: none;
 }
 
 .select-wrapper img {
