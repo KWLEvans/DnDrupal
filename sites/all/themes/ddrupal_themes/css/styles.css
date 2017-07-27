@@ -30,7 +30,7 @@
 }
 
 #left-select-arrow, #right-select-arrow {
-  position: relative;
+  position: absolute;
   top:180px;
   color: white;
   font-size: 4em;
@@ -38,6 +38,7 @@
 
 #left-select-arrow:hover, #right-select-arrow:hover {
   font-size: 5em;
+  top: 170px;
 }
 
 #left-select-arrow {
@@ -117,6 +118,7 @@
 }
 
 .select-wrapper {
+  position: relative;
   height: 80%;
   width: 100%;
 }

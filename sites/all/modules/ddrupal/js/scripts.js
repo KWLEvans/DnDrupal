@@ -46,37 +46,27 @@
       }
       //////////////////////////////
 
-      //Select controls for race select page
-      if (window.location.pathname === '/new_character/race') {
+      //Select controls for race/class select pages
+      if (window.location.pathname === '/new_character/race' || window.location.pathname === '/new_character/class') {
+        var path = window.location.pathname.substr(15);
         $($('.select-element')[0]).show();
 
-        $('.select-element').once('race-select-click').click(function() {
-          $("input[type='radio']").attr('checked', false);
-          $(this).children('input').attr('checked', true);
-          $('#set-race-button').attr('disabled', false);
+        function page(direction) {
+
+        }
+
+        $('#left-select-arrow').click(function() {
+          page('left');
         });
 
-        $('#set-race-button').click(function(event) {
+        $('#right-select-arrow').click(function() {
+          page('right');
+        });
+
+        $('#set-' + path + '-button').click(function(event) {
           event.preventDefault();
-          var race_selection = $("input[type='radio']:checked").val();
-          window.location.pathname = '/new_character/submit_race/' + race_selection;
-        });
-      }
-
-      //Select controls for class select page
-      if (window.location.pathname === '/new_character/class') {
-        $($('.select-element')[0]).show();
-
-        $('.select-element').once('class-select-click').click(function() {
-          $("input[type='radio']").attr('checked', false);
-          $(this).children('input').attr('checked', true);
-          $('#set-class-button').attr('disabled', false);
-        });
-
-        $('#set-class-button').click(function(event) {
-          event.preventDefault();
-          var class_selection = $("input[type='radio']:checked").val();
-          window.location.pathname = '/new_character/submit_class/' + class_selection;
+          var selection = $("input[type='radio']:checked").val();
+          window.location.pathname = '/new_character/submit_' + path + '/' + selection;
         });
       }
 
