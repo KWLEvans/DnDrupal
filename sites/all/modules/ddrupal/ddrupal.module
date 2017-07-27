@@ -243,6 +243,7 @@ function class_form_submit($class_id) {
       $saves[] = array('value' => $saving_throw['value']);
     }
 
+    $_SESSION['new_character']['class'] = $node->title;
     $_SESSION['new_character']['skill_proficiency'] = $skills;
     $_SESSION['new_character']['total_skills'] = $node->field_total_skills['und'][0]['value'];
     $_SESSION['new_character']['saving_throws'] = $saves;
