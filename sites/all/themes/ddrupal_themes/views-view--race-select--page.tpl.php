@@ -57,7 +57,13 @@
   <?php if ($rows): ?>
     <div class="view-content">
       <form id="race-select-form" action='/submit_race' method="get">
-        <?php print $rows; ?>
+        <div class="select-wrapper">
+          <div class='select-pagers'>
+            <div id='left-select-arrow'>◀</div>
+            <div id='right-select-arrow'>▶</div>
+          </div>
+          <?php print $rows; ?>
+        </div>
         <button id="set-race-button" type="submit" disabled>Set Race</button>
       </form>
     </div>

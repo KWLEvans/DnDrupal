@@ -57,7 +57,13 @@
   <?php if ($rows): ?>
     <div class="view-content">
       <form id="class-select-form" action='/submit_class' method="get">
-        <?php print $rows; ?>
+        <div class="select-wrapper">
+          <div class='select-pagers'>
+            <div class='left-select-arrow'>◀</div>
+            <div class='right-select-arrow'>▶</div>
+          </div>
+          <?php print $rows; ?>
+        </div>
         <button id="set-class-button" type="submit" disabled>Set Class</button>
       </form>
     </div>
