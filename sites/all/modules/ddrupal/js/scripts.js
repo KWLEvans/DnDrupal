@@ -57,7 +57,7 @@
           var active_row = $('div.views-row').children(':visible').parent();
           $('#set-' + path + '-button').attr('disabled', true);
           $('input[type="radio"]').attr('checked', false);
-          $('.select-details').html().fadeOut();
+          $('.select-details').fadeOut();
 
           active_page.fadeOut(400, function() {
             if (direction === 'right') {
