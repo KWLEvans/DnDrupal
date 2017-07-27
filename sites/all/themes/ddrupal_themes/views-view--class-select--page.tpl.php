@@ -59,8 +59,8 @@
       <form id="class-select-form" action='/submit_class' method="get">
         <div class="select-wrapper">
           <div class='select-pagers'>
-            <div class='left-select-arrow'>◀</div>
-            <div class='right-select-arrow'>▶</div>
+            <div id='left-select-arrow'>◀</div>
+            <div id='right-select-arrow'>▶</div>
           </div>
           <?php print $rows; ?>
         </div>

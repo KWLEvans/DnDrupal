@@ -116,9 +116,9 @@
 }
 
 .select-details {
-  width: calc(100% - 500px);
+  width: calc(100% - 550px);
   height: 100%;
-  display: inline-block;
+  float: right;
 }
 
 .select-element {
