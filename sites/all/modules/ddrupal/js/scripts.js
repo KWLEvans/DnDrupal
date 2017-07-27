@@ -65,7 +65,7 @@
             }
           } else if (direction === 'left') {
             if (active_page.hasClass('views-row-last')) {
-              active_row.prev().children().fadeIn().
+              active_row.prev().children().fadeIn();
             } else {
               $('.views-row-first').fadeIn();
             }
