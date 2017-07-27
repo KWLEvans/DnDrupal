@@ -48,7 +48,7 @@
 
       //Select controls for race select page
       if (window.location.pathname === '/new_character/race') {
-        $('.race-wrapper').once('race-select-click').click(function() {
+        $('.select-wrapper').once('race-select-click').click(function() {
           $("input[type='radio']").attr('checked', false);
           $(this).children('input').attr('checked', true);
           $('#set-race-button').attr('disabled', false);
@@ -58,6 +58,21 @@
           event.preventDefault();
           var race_selection = $("input[type='radio']:checked").val();
           window.location.pathname = '/new_character/submit_race/' + race_selection;
+        });
+      }
+
+      //Select controls for class select page
+      if (window.location.pathname === '/new_character/class') {
+        $('.select-wrapper').once('class-select-click').click(function() {
+          $("input[type='radio']").attr('checked', false);
+          $(this).children('input').attr('checked', true);
+          $('#set-class-button').attr('disabled', false);
+        });
+
+        $('#set-class-button').click(function(event) {
+          event.preventDefault();
+          var class_selection = $("input[type='radio']:checked").val();
+          window.location.pathname = '/new_character/submit_class/' + class_selection;
         });
       }
 
