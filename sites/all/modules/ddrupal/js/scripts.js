@@ -59,15 +59,23 @@
 
           if (direction === 'right') {
             if (!active_page.hasClass('views-row-last')) {
-              active_row.next().children().fadeIn();
+              setTimeout(function() {
+                active_row.next().children().fadeIn();
+              }, 500);
             } else {
-              $('.views-row-first').fadeIn();
+              setTimeout(function() {
+                $('.views-row-first').fadeIn();
+              }, 500);
             }
           } else if (direction === 'left') {
             if (active_page.hasClass('views-row-last')) {
-              active_row.prev().children().fadeIn();
+              setTimeout(function() {
+                active_row.prev().children().fadeIn();
+              }, 500);
             } else {
-              $('.views-row-first').fadeIn();
+              setTimeout(function() {
+                $('.views-row-first').fadeIn();
+              }, 500);
             }
           }
 
