@@ -115,6 +115,11 @@
   margin: 25px calc(50% - 175px);
 }
 
+.select-detail {
+  width: calc(100% - 500px);
+  height: 100%;
+}
+
 .select-element {
   display: none;
 }
@@ -128,7 +133,7 @@
 .select-wrapper {
   position: relative;
   height: 80%;
-  width: 100%;
+  width: 500px;
 }
 
 .saving-throw div, .saving-throw input, .skill div, .skill input, #proficiency div {
