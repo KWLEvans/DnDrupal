@@ -50,16 +50,35 @@
       if (window.location.pathname === '/new_character/race' || window.location.pathname === '/new_character/class') {
         var path = window.location.pathname.substr(15);
         $($('.select-element')[0]).show();
+        $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
 
         function page(direction) {
+          var active_page = $('div.views-row').children(':visible');
+          var active_row = $('div.views-row').children(':visible').parent();
+          active_page.fadeOut();
 
+          if (direction === 'right') {
+            if (!active_page.hasClass('views-row-last')) {
+              active_row.next().children().fadeIn();
+            } else {
+              $('.views-row-first').fadeIn();
+            }
+          } else if (direction === 'left') {
+            if (active_page.hasClass('views-row-last')) {
+              active_row.prev().children().fadeIn().
+            } else {
+              $('.views-row-first').fadeIn();
+            }
+          }
+
+          $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
         }
 
-        $('#left-select-arrow').click(function() {
+        $('#left-select-arrow').once('pager-click').click(function() {
           page('left');
         });
 
-        $('#right-select-arrow').click(function() {
+        $('#right-select-arrow').once('pager-click').click(function() {
           page('right');
         });
 
