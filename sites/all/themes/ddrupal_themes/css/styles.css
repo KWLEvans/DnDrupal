@@ -39,7 +39,7 @@
     float: left;
 }
 
-#header .section {
+#header div.section.clearfix {
   width: 90%;
 }
 
