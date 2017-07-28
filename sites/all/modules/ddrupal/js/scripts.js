@@ -96,19 +96,19 @@
         }
 
         function bindPagers() {
-          $('#left-select-arrow').click(function() {
+          $('#left-select-arrow').once('pager-click').click(function() {
             page('left');
           });
-          $('#right-select-arrow').click(function() {
+          $('#right-select-arrow').once('pager-click').click(function() {
             page('right');
           });
         }
 
         function unbindPagers() {
           $('#left-select-arrow').unbind('click');
-          // $('#left-select-arrow').removeClass('pager-click-processed');
+          $('#left-select-arrow').removeClass('pager-click-processed');
           $('#right-select-arrow').unbind('click');
-          // $('#right-select-arrow').removeClass('pager-click-processed');
+          $('#right-select-arrow').removeClass('pager-click-processed');
         }
 
         $('#set-' + path + '-button').click(function(event) {
@@ -123,18 +123,23 @@
               console.log(response);
               $('.select-details').html(response);
               $('.select-details').fadeIn();
-              bindPagers();
+              // bindPagers();
             });
           } else {
             $.get(window.location.origin + '/select_class_abilities/' + id, function(response) {
               $('.select-details').html(response);
               $('.select-details').fadeIn();
-              bindPagers();
+              // bindPagers();
             });
           }
         }
         getDetails($('input[type="radio"]:checked').val());
-
+        $('#left-select-arrow').once('pager-click').click(function() {
+          page('left');
+        });
+        $('#right-select-arrow').once('pager-click').click(function() {
+          page('right');
+        });
       }
 
       //Form controls for character sheet view
