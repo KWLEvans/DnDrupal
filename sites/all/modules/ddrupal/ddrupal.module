@@ -163,8 +163,8 @@ function class_form_submit($class_id) {
 
   $entities = $query->entityCondition('entity_type', 'node')
   ->propertyCondition('type', 'class_ability')
-  ->fieldCondition('field_class_ability_class', 'target_id', $class_id)
-  ->fieldCondition('field_class_ability_level', 'value', 1)
+  ->fieldCondition('field_class_ability_class', 'target_id', $class_id, '=', 0)
+  ->fieldCondition('field_class_ability_level', 'value', 1, '=', 0)
   ->execute();
 
   if (!empty($entities['node'])) {
