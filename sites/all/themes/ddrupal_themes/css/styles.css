@@ -39,6 +39,10 @@
     float: left;
 }
 
+#header .clearfix {
+  width: 90%;
+}
+
 #left-select-arrow, #right-select-arrow {
   position: absolute;
   top:225px;
