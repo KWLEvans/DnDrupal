@@ -175,6 +175,8 @@ function class_form_submit($class_id) {
       $abilities[] = array('target_id' => $node->nid, 'target_type' => 'node');
     }
     $_SESSION['new_character']['class_abilities'] = $abilities;
+  } else {
+    $_SESSION['new_character']['class_abilities'] = array();
   }
 
   drupal_goto('new_character/rolls');
