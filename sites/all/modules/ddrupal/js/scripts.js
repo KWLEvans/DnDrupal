@@ -53,6 +53,7 @@
         $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
 
         function page(direction) {
+          unbindPagers();
           var active_page = $('div.views-row').children(':visible');
           var active_row = $('div.views-row').children(':visible').parent();
           $('#set-' + path + '-button').attr('disabled', true);
@@ -94,13 +95,21 @@
           });
         }
 
-        $('#left-select-arrow').once('pager-click').click(function() {
-          page('left');
-        });
+        function bindPagers() {
+          $('#left-select-arrow').once('pager-click').click(function() {
+            page('left');
+          });
+          $('#right-select-arrow').once('pager-click').click(function() {
+            page('right');
+          });
+        }
 
-        $('#right-select-arrow').once('pager-click').click(function() {
-          page('right');
-        });
+        function unbindPagers() {
+          $('#left-select-arrow').unbind();
+          $('#left-select-arrow').removeClass('pager-click-processed');
+          $('#right-select-arrow').unbind();
+          $('#right-select-arrow').removeClass('pager-click-processed');
+        }
 
         $('#set-' + path + '-button').click(function(event) {
           event.preventDefault();
@@ -108,20 +117,23 @@
           window.location.pathname = '/new_character/submit_' + path + '/' + selection;
         });
 
-        function getDetails(id) {
+        function getDetails(id, callback) {
           if (path === 'race') {
             $.get(window.location.origin + '/select_racial_abilities/' + id, function(response) {
               $('.select-details').html(response);
               $('.select-details').fadeIn();
+              bindPagers();
             });
           } else {
             $.get(window.location.origin + '/select_class_abilities/' + id, function(response) {
               $('.select-details').html(response);
               $('.select-details').fadeIn();
+              bindPagers();
             });
           }
         }
         getDetails($('input[type="radio"]:checked').val());
+
       }
 
       //Form controls for character sheet view

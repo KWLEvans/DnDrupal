@@ -9,6 +9,11 @@
 #button-align {
   width: 100%;
   text-align: center;
+  margin-top: 30px;
+}
+
+#class-select-form, #race-select-form {
+  height: 600px;
 }
 
 #content {
@@ -122,7 +127,7 @@
 
 .select-details {
   width: calc(100% - 550px);
-  height: 100%;
+  height: 600px;
   float: right;
 }
 
@@ -139,7 +144,7 @@
 .select-wrapper {
   display: inline-block;
   position: relative;
-  height: 80%;
+  height: 600px;
   width: 500px;
 }
 
