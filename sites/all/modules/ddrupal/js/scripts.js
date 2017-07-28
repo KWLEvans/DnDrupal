@@ -105,9 +105,9 @@
         }
 
         function unbindPagers() {
-          $('#left-select-arrow').unbind();
+          $('#left-select-arrow').unbind('click');
           $('#left-select-arrow').removeClass('pager-click-processed');
-          $('#right-select-arrow').unbind();
+          $('#right-select-arrow').unbind('click');
           $('#right-select-arrow').removeClass('pager-click-processed');
         }
 
@@ -119,26 +119,11 @@
 
         function getDetails(id) {
           if (path === 'race') {
-            // $.get(window.location.origin + '/select_racial_abilities/' + id, function(response) {
-            //   console.log(response);
-            //   $('.select-details').html(response);
-            //   $('.select-details').fadeIn();
-            //   bindPagers();
-            // });
-            $.ajax({
-              url: Drupal.settings.basePath + '/views/ajax',
-              type: 'post',
-              data: {
-                view_name: 'select_racial_abilities',
-                view_display_id: 'block', //your display id
-                view_args: [id], // your views arguments
-              },
-              dataType: 'json',
-              success: function (response) {
-                if (response[1] !== undefined) {
-                  console.log(response[1].data); // do something with the view
-                }
-              }
+            $.get(window.location.origin + '/select_racial_abilities/' + id, function(response) {
+              console.log(response);
+              $('.select-details').html(response);
+              $('.select-details').fadeIn();
+              bindPagers();
             });
           } else {
             $.get(window.location.origin + '/select_class_abilities/' + id, function(response) {
