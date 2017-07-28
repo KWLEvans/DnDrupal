@@ -96,19 +96,19 @@
         }
 
         function bindPagers() {
-          $('#left-select-arrow').once('pager-click').click(function() {
+          $('#left-select-arrow').click(function() {
             page('left');
           });
-          $('#right-select-arrow').once('pager-click').click(function() {
+          $('#right-select-arrow').click(function() {
             page('right');
           });
         }
 
         function unbindPagers() {
           $('#left-select-arrow').unbind('click');
-          $('#left-select-arrow').removeClass('pager-click-processed');
+          // $('#left-select-arrow').removeClass('pager-click-processed');
           $('#right-select-arrow').unbind('click');
-          $('#right-select-arrow').removeClass('pager-click-processed');
+          // $('#right-select-arrow').removeClass('pager-click-processed');
         }
 
         $('#set-' + path + '-button').click(function(event) {
