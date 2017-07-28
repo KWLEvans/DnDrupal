@@ -27,11 +27,11 @@ function ddrupal_menu() {
     'title' => t('Create a new character?'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('start_form'),
-    'access callback' => TRUE,
+    'access callback' => 'user_is_logged_in',
     'type' => MENU_NORMAL_ITEM,
   );
   $items['select_racial_abilities/%'] = array(
-      'access callback' => TRUE,
+      'access callback' => 'user_is_logged_in',
       'page callback' => 'select_racial_abilities_callback',
       'page arguments' => array(1),
       'type' => MENU_CALLBACK,
@@ -39,11 +39,11 @@ function ddrupal_menu() {
   $items['new_character/submit_race/%'] = array(
     'page callback' => 'race_form_submit',
     'page arguments' => array(2),
-    'access callback' => TRUE,
+    'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
   );
   $items['select_class_abilities/%'] = array(
-      'access callback' => TRUE,
+      'access callback' => 'user_is_logged_in',
       'page callback' => 'select_class_abilities_callback',
       'page arguments' => array(1),
       'type' => MENU_CALLBACK,
@@ -51,41 +51,41 @@ function ddrupal_menu() {
   $items['new_character/submit_class/%'] = array(
     'page callback' => 'class_form_submit',
     'page arguments' => array(2),
-    'access callback' => TRUE,
+    'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
   );
   $items['new_character/rolls'] = array(
     'page callback' => 'drupal_get_form',
     'page arguments' => array('rolls_form'),
-    'access callback' => TRUE,
+    'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
   );
   $items['new_character/stats'] = array(
     'page callback' => 'drupal_get_form',
     'page arguments' => array('stats_form'),
-    'access callback' => TRUE,
+    'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
   );
   $items['new_character/skills'] = array(
     'page callback' => 'drupal_get_form',
     'page arguments' => array('skills_form'),
-    'access callback' => TRUE,
+    'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
   );
   $items['new_character/bio'] = array(
     'page callback' => 'drupal_get_form',
     'page arguments' => array('bio_form'),
-    'access callback' => TRUE,
+    'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
   );
   $items['racial_abilities/%'] = array(
-      'access callback' => TRUE,
+      'access callback' => 'user_is_logged_in',
       'page callback' => 'racial_abilities_callback',
       'page arguments' => array(1),
       'type' => MENU_CALLBACK,
   );
   $items['class_abilities/%'] = array(
-      'access callback' => TRUE,
+      'access callback' => 'user_is_logged_in',
       'page callback' => 'class_abilities_callback',
       'page arguments' => array(1),
       'type' => MENU_CALLBACK,
