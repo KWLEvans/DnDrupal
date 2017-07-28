@@ -120,6 +120,7 @@
         function getDetails(id, callback) {
           if (path === 'race') {
             $.get(window.location.origin + '/select_racial_abilities/' + id, function(response) {
+              console.log(response);
               $('.select-details').html(response);
               $('.select-details').fadeIn();
               bindPagers();
