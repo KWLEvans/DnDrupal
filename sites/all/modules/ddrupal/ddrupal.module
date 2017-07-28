@@ -179,11 +179,6 @@ function class_form_submit($class_id) {
     $_SESSION['new_character']['class_abilities'] = array();
   }
 
-  echo "<pre>";
-  print_r($_SESSION['new_character']);
-  echo "</pre>";
-  exit;
-
   drupal_goto('new_character/rolls');
 }
 

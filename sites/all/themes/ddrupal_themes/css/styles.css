@@ -13,7 +13,7 @@
 }
 
 #class-select-form, #race-select-form {
-  height: 600px;
+  height: 701px;
 }
 
 #content {
@@ -138,7 +138,7 @@
 }
 
 .select-element h2 {
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
 }
 
 .select-flavor-text {
