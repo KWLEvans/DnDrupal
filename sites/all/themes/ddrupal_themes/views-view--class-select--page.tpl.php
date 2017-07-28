@@ -67,7 +67,7 @@
         <div class="select-details"></div>
       </form>
       <div id="button-align">
-        <button id="set-class-button" type="submit">Set Class</button>
+        <button id="set-class-button" type="submit">Roll Stats >></button>
       </div>
     </div>
   <?php elseif ($empty): ?>

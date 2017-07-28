@@ -68,7 +68,7 @@
         </div>
       </form>
       <div id="button-align">
-        <button id="set-race-button" type="submit">Set Race</button>
+        <button id="set-race-button" type="submit">Choose Class >></button>
       </div>
     </div>
   <?php elseif ($empty): ?>

@@ -62,7 +62,7 @@
 
           active_page.fadeOut(400, function() {
             if (direction === 'right') {
-              if (!active_page.hasClass('views-row-last')) {
+              if (!active_row.hasClass('views-row-last')) {
                 active_row.next().children().fadeIn(400, function() {
                   $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
                   $('#set-' + path + '-button').attr('disabled', false);
@@ -76,7 +76,7 @@
                 });
               }
             } else if (direction === 'left') {
-              if (!active_page.hasClass('views-row-first')) {
+              if (!active_row.hasClass('views-row-first')) {
                 active_row.prev().children().fadeIn(400, function() {
                   $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
                   $('#set-' + path + '-button').attr('disabled', false);

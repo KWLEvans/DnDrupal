@@ -107,53 +107,7 @@ function start_form_submit($form, &$form_state) {
   $form_state['redirect'] = 'new_character/race';
 }
 
-// function race_form() {
-//   $form['race'] = array(
-//     '#title' => t('What race is your character?'),
-//     '#type' => 'radios',
-//     '#options' => array(
-//       "hill_dwarf" => "Dwarf (Hill)",
-//       "mountain_dwarf" => "Dwarf (Mountain)",
-//       "high_elf" => "Elf (High)",
-//       "wood_elf" => "Elf (Wood)",
-//       "dark_elf" => "Elf (Drow)",
-//       "halfling" => "Halfling",
-//       "human" => "Human",
-//       "dragonborn" => "Dragonborn",
-//       "forest_gnome" => "Gnome (Forest)",
-//       "rock_gnome" => "Gnome (Rock)",
-//       "half_elf" => "Half-Elf",
-//       "half_orc" => "Half-Orc",
-//       "tiefling" => "Tiefling",
-//     ),
-//     '#required' => TRUE,
-//   );
-//
-//   $form['submit'] = array(
-//     '#type' => 'submit',
-//     '#value' => 'Set Race',
-//   );
-//   return $form;
-// }
-
 function race_form_submit($race_id) {
-  // $_SESSION['new_character']['race'] = $race;
-  // $race_id;
-
-  // $race_query = new EntityFieldQuery();
-  //
-  // $entities = $race_query->entityCondition('entity_type', 'node')
-  // ->propertyCondition('type', 'race')
-  // ->propertyCondition('title', formatRace($race))
-  // ->execute();
-
-  // if (!empty($entities['node'])) {
-  //   $ids = array_keys($entities['node']);
-  //   foreach($ids as $nid) {
-  //     $race_id = $nid;
-  //   }
-  // }
-
   $race_node = node_load($race_id);
   $_SESSION['new_character']['race'] = $race_node->title;
   $_SESSION['new_character']['strength'] = $race_node->field_racial_strength['und'][0]['value'];
@@ -185,53 +139,7 @@ function race_form_submit($race_id) {
   drupal_goto('new_character/class');
 }
 
-// function class_form() {
-//   $form['class'] = array(
-//     '#title' => t('What class is your character?'),
-//     '#type' => 'radios',
-//     '#options' => array(
-//       "barbarian" => "Barbarian",
-//       "bard" => "Bard",
-//       "cleric" => "Cleric",
-//       "druid" => "Druid",
-//       "fighter" => "Fighter",
-//       "monk" => "Monk",
-//       "paladin" => "Paladin",
-//       "ranger" => "Ranger",
-//       "rogue" => "Rogue",
-//       "sorcerer" => "Sorcerer",
-//       "warlock" => "Warlock",
-//       "wizard" => "Wizard",
-//     ),
-//     '#required' => TRUE,
-//   );
-//
-//   $form['submit'] = array(
-//     '#type' => 'submit',
-//     '#value' => 'Set Class',
-//   );
-//   return $form;
-// }
-
 function class_form_submit($class_id) {
-  // $class = $form_state['values']['class'];
-  // $_SESSION['new_character']['class'] = $class;
-  // $class_id;
-  //
-  // $query = new EntityFieldQuery();
-  //
-  //
-  // $entities = $query->entityCondition('entity_type', 'node')
-  // ->propertyCondition('type', 'class')
-  // ->propertyCondition('title', $class)
-  // ->propertyCondition('status', 0)
-  // ->range(0,1)
-  // ->execute();
-  //
-  // if (!empty($entities['node'])) {
-  //   $ids = array_keys($entities['node']);
-  //   $nid = array_shift($ids);
-  //   $class_id = $nid;
     $node = node_load($class_id);
     $skills = array();
     foreach ($node->field_skill_proficiency['und'] as $skill_proficiency) {
@@ -255,7 +163,6 @@ function class_form_submit($class_id) {
 
   $entities = $query->entityCondition('entity_type', 'node')
   ->propertyCondition('type', 'class_ability')
-  ->propertyCondition('status', 0)
   ->fieldCondition('field_class_ability_class', 'target_id', $class_id)
   ->fieldCondition('field_class_ability_level', 'value', 1)
   ->execute();

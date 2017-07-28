@@ -129,6 +129,7 @@
   width: calc(100% - 550px);
   height: 600px;
   float: right;
+  overflow: scroll;
 }
 
 .select-element {
