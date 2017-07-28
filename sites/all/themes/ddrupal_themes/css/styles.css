@@ -41,14 +41,14 @@
 
 #left-select-arrow, #right-select-arrow {
   position: absolute;
-  top:180px;
+  top:225px;
   color: white;
   font-size: 4em;
 }
 
 #left-select-arrow:hover, #right-select-arrow:hover {
   font-size: 5em;
-  top: 170px;
+  top: 215px;
 }
 
 #left-select-arrow {
@@ -127,13 +127,22 @@
 
 .select-details {
   width: calc(100% - 550px);
-  height: 600px;
+  height: 595px;
+  margin-top: 55px;
   float: right;
   overflow: scroll;
 }
 
 .select-element {
   display: none;
+}
+
+.select-element h2 {
+  margin-bottom: 10px;
+}
+
+.select-flavor-text {
+  margin-top: 20px;
 }
 
 .select-pagers {
@@ -145,7 +154,7 @@
 .select-wrapper {
   display: inline-block;
   position: relative;
-  height: 600px;
+  height: 650px;
   width: 500px;
 }
 
