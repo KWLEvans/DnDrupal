@@ -42,7 +42,7 @@ if (!function_exists('parseContent')) {
 
 $nid = $fields['field_race']->raw;
 
-dpm($fields);
+// dpm($fields);
 ?>
 
 
