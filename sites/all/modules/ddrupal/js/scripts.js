@@ -63,11 +63,11 @@
           active_page.fadeOut(400, function() {
             if (direction === 'right') {
               if (!active_page.hasClass('views-row-last')) {
-                  active_row.next().children().fadeIn(400, function() {
-                    $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
-                    $('#set-' + path + '-button').attr('disabled', false);
-                    getDetails($('input[type="radio"]:checked').val());
-                  });
+                active_row.next().children().fadeIn(400, function() {
+                  $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
+                  $('#set-' + path + '-button').attr('disabled', false);
+                  getDetails($('input[type="radio"]:checked').val());
+                });
               } else {
                 $('.views-row-first').children().fadeIn(400, function() {
                   $('input[type="radio"]').parent(':visible').children('input').attr('checked', true);
@@ -117,13 +117,28 @@
           window.location.pathname = '/new_character/submit_' + path + '/' + selection;
         });
 
-        function getDetails(id, callback) {
+        function getDetails(id) {
           if (path === 'race') {
-            $.get(window.location.origin + '/select_racial_abilities/' + id, function(response) {
-              console.log(response);
-              $('.select-details').html(response);
-              $('.select-details').fadeIn();
-              bindPagers();
+            // $.get(window.location.origin + '/select_racial_abilities/' + id, function(response) {
+            //   console.log(response);
+            //   $('.select-details').html(response);
+            //   $('.select-details').fadeIn();
+            //   bindPagers();
+            // });
+            $.ajax({
+              url: Drupal.settings.basePath + '/views/ajax',
+              type: 'post',
+              data: {
+                view_name: 'select_racial_abilities',
+                view_display_id: 'block', //your display id
+                view_args: {id}, // your views arguments
+              },
+              dataType: 'json',
+              success: function (response) {
+                if (response[1] !== undefined) {
+                  console.log(response[1].data); // do something with the view
+                }
+              }
             });
           } else {
             $.get(window.location.origin + '/select_class_abilities/' + id, function(response) {
@@ -154,36 +169,36 @@
 
         //AJAX call for Racial Abilities
         $('#ra-select').once('handler-added').click(function() {
-            var nid = window.location.pathname.match(/character\/(\d+)/);
-            nid = nid[1];
-            $.get(window.location.origin + '/racial_abilities/' + nid, function(response) {
-                $('#detail-pane').html(response);
-                $('#detail-pane .views-field-title-1').once('handler-added').click(function() {
-                    if ($(this).next().is(':visible')) {
-                        $('#detail-pane .views-field-body:visible').slideUp();
-                    } else {
-                        $('#detail-pane .views-field-body:visible').slideUp();
-                        $(this).next().slideDown();
-                    }
-                });
+          var nid = window.location.pathname.match(/character\/(\d+)/);
+          nid = nid[1];
+          $.get(window.location.origin + '/racial_abilities/' + nid, function(response) {
+            $('#detail-pane').html(response);
+            $('#detail-pane .views-field-title-1').once('handler-added').click(function() {
+              if ($(this).next().is(':visible')) {
+                $('#detail-pane .views-field-body:visible').slideUp();
+              } else {
+                $('#detail-pane .views-field-body:visible').slideUp();
+                $(this).next().slideDown();
+              }
             });
+          });
         });
 
         //AJAX call for Class Abilities
         $('#ca-select').once('handler-added').click(function() {
-            var nid = window.location.pathname.match(/character\/(\d+)/);
-            nid = nid[1];
-            $.get(window.location.origin + '/class_abilities/' + nid, function(response) {
-                $('#detail-pane').html(response);
-                $('#detail-pane .views-field-title').once('handler-added').click(function() {
-                    if ($(this).next().is(':visible')) {
-                        $('#detail-pane .views-field-body:visible').slideUp();
-                    } else {
-                        $('#detail-pane .views-field-body:visible').slideUp();
-                        $(this).next().slideDown();
-                    }
-                });
+          var nid = window.location.pathname.match(/character\/(\d+)/);
+          nid = nid[1];
+          $.get(window.location.origin + '/class_abilities/' + nid, function(response) {
+            $('#detail-pane').html(response);
+            $('#detail-pane .views-field-title').once('handler-added').click(function() {
+              if ($(this).next().is(':visible')) {
+                $('#detail-pane .views-field-body:visible').slideUp();
+              } else {
+                $('#detail-pane .views-field-body:visible').slideUp();
+                $(this).next().slideDown();
+              }
             });
+          });
         });
 
 
