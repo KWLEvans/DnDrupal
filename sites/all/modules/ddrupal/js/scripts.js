@@ -131,7 +131,7 @@
               data: {
                 view_name: 'select_racial_abilities',
                 view_display_id: 'block', //your display id
-                view_args: {id}, // your views arguments
+                view_args: id, // your views arguments
               },
               dataType: 'json',
               success: function (response) {
