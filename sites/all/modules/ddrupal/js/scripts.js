@@ -54,8 +54,8 @@
 
         function page(direction) {
           unbindPagers();
-          var active_page = $('div.views-row').children(':visible');
-          var active_row = $('div.views-row').children(':visible').parent();
+          var active_page = $('.select-wrapper .views-row').children(':visible');
+          var active_row = $('.select-wrapper .views-row').children(':visible').parent();
           $('#set-' + path + '-button').attr('disabled', true);
           $('input[type="radio"]').attr('checked', false);
           $('.select-details').fadeOut();
@@ -123,23 +123,17 @@
               console.log(response);
               $('.select-details').html(response);
               $('.select-details').fadeIn();
-              // bindPagers();
+              bindPagers();
             });
           } else {
             $.get(window.location.origin + '/select_class_abilities/' + id, function(response) {
               $('.select-details').html(response);
               $('.select-details').fadeIn();
-              // bindPagers();
+              bindPagers();
             });
           }
         }
         getDetails($('input[type="radio"]:checked').val());
-        $('#left-select-arrow').once('pager-click').click(function() {
-          page('left');
-        });
-        $('#right-select-arrow').once('pager-click').click(function() {
-          page('right');
-        });
       }
 
       //Form controls for character sheet view
