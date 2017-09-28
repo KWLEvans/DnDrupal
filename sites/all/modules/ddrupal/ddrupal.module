@@ -441,12 +441,13 @@ function half_elf_skills_form() {
     }
   }
 
-  //Set number of skills to 2
-  $number_of_skills = array(FIELD_CARDINALITY_UNLIMITED => t('Unlimited')) + 2;
+  //Set number of skills to total skills defined by class
+  $range = drupal_map_assoc(array(2));
+  $number_of_skills = array(FIELD_CARDINALITY_UNLIMITED => t('Unlimited')) + $range;
   $form['field']['cardinality']['#options'] = $number_of_skills;
 
   $form['skills'] = array(
-    '#title' => t('As a Half-Elf, you get to choose additional proficiency in any 2 skills.'),
+    '#title' => t('Choose '. $_SESSION['new_character']['total_skills'] . ' skills.'),
     '#type' => 'checkboxes',
     '#options' => $options,
     '#multiple' => TRUE,
@@ -456,7 +457,7 @@ function half_elf_skills_form() {
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => 'Choose Additional Proficiencies',
+    '#value' => 'Set Skills',
   );
   return $form;
 }
