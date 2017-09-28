@@ -72,6 +72,12 @@ function ddrupal_menu() {
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
   );
+  $items['new_character/half_elf_skills'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('half_elf_skills_form'),
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK,
+  );
   $items['new_character/bio'] = array(
     'page callback' => 'drupal_get_form',
     'page arguments' => array('bio_form'),
@@ -117,6 +123,12 @@ function race_form_submit($race_id) {
   $_SESSION['new_character']['wisdom'] = $race_node->field_racial_wisdom['und'][0]['value'];
   $_SESSION['new_character']['charisma'] = $race_node->field_racial_charisma['und'][0]['value'];
 
+  //Increase total skills for Elves (Keen Senses), Half-Orcs (Menacing)
+  if ($_SESSION['new_character']['race'] == "Half-Orc" || preg_match('/\sElf/', $_SESSION['new_character']['race'])) {
+    $_SESSION['new_character']['total_skills'] = 1;
+  } else {
+    $_SESSION['new_character']['total_skills'] = 0;
+  }
 
   $query = new EntityFieldQuery();
 
@@ -153,7 +165,7 @@ function class_form_submit($class_id) {
 
     $_SESSION['new_character']['class'] = $node->title;
     $_SESSION['new_character']['skill_proficiency'] = $skills;
-    $_SESSION['new_character']['total_skills'] = $node->field_total_skills['und'][0]['value'];
+    $_SESSION['new_character']['total_skills'] += (int)$node->field_total_skills['und'][0]['value'];
     $_SESSION['new_character']['saving_throws'] = $saves;
     $_SESSION['new_character']['proficiency_bonus'] = $node->field_proficiency['und'][0]['value'];
     $_SESSION['new_character']['hit_die'] = $node->field_hit_die['und'][0]['value'];
@@ -392,6 +404,71 @@ function skills_form_submit($form, &$form_state) {
     }
   }
   $_SESSION['new_character']['skills'] = $skills;
+  if ($_SESSION['new_character']['race'] == 'Half-Elf') {
+    $form_state['redirect'] = 'new_character/half_elf_skills';
+  } else {
+    $form_state['redirect'] = 'new_character/bio';
+  }
+}
+
+function half_elf_skills_form() {
+  $options = array();
+  $skill_options = array(
+    "field_acrobatics" => "Acrobatics",
+    "field_animal_handling" => "Animal Handling",
+    "field_arcana" => "Arcana",
+    "field_athletics" => "Athletics",
+    "field_deception" => "Deception",
+    "field_history" => "History",
+    "field_insight" => "Insight",
+    "field_intimidation" => "Intimidation",
+    "field_investigation" => "Investigation",
+    "field_medicine" => "Medicine",
+    "field_nature" => "Nature",
+    "field_perception" => "Perception",
+    "field_performance" => "Performance",
+    "field_persuasion" => "Persuasion",
+    "field_religion" => "Religion",
+    "field_sleight_of_hand" => "Sleight of Hand",
+    "field_stealth" => "Stealth",
+    "field_survival" => "Survival",
+  );
+
+  $chosen_skills = $_SESSION['new_character']['skills'];
+  foreach ($skill_options as $machine_name_skill => $skill_option) {
+    if (!in_array($machine_name_skill, $chosen_skills)) {
+      $options[$machine_name_skill] = $skill_options[$machine_name_skill];
+    }
+  }
+
+  //Set number of skills to 2
+  $number_of_skills = array(FIELD_CARDINALITY_UNLIMITED => t('Unlimited')) + 2;
+  $form['field']['cardinality']['#options'] = $number_of_skills;
+
+  $form['skills'] = array(
+    '#title' => t('As a Half-Elf, you get to choose additional proficiency in any 2 skills.'),
+    '#type' => 'checkboxes',
+    '#options' => $options,
+    '#multiple' => TRUE,
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_number_of_skills'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Choose Additional Proficiencies',
+  );
+  return $form;
+}
+
+function half_elf_skills_form_submit($form, &$form_state) {
+  $skills = array();
+  foreach ($form_state['values']['skills'] as $skill => $is_chosen) {
+    if ($is_chosen) {
+      $skills[] = array('value' => $skill);
+    }
+  }
+  $_SESSION['new_character']['skills'] = array_merge($_SESSION['new_character']['skills'], $skills);
   $form_state['redirect'] = 'new_character/bio';
 }
 
@@ -451,6 +528,12 @@ function bio_form_submit($form, &$form_state) {
   $constitution = $char['constitution'];
   $const_mod = floor(($constitution-10)/2);
   $hit_points = $char['hit_die'] + $const_mod;
+
+  //Account for Dawrven Toughness
+  if ($char['race'] == "Hill Dwarf") {
+    $hit_points += 1;
+  }
+
   $node->field_hit_points['und'][0]['value'] = $hit_points;
 
   $node = node_submit($node);

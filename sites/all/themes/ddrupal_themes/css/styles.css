@@ -112,6 +112,7 @@
     border: 2px solid black;
     display: inline-block;
     width: 23%;
+    cursor: pointer;
 }
 
 .select-carousel {
