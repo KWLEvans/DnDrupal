@@ -437,6 +437,10 @@ function half_elf_skills_form() {
   );
 
   $chosen_skills = $_SESSION['new_character']['skills'];
+  echo "<pre>";
+  print_r($chosen_skills);
+  echo "</pre>";
+  exit;
   foreach ($skill_options as $machine_name_skill => $skill_option) {
     $is_chosen = false;
     foreach ($chosen_skills as $key => $skill_name) {
