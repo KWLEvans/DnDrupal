@@ -443,9 +443,11 @@ function half_elf_skills_form() {
   exit;
   foreach ($skill_options as $machine_name_skill => $skill_option) {
     $is_chosen = false;
-    foreach ($chosen_skills as $key => $skill_name) {
-      if ($machine_name_skill == $skill_name) {
-        $is_chosen = true;
+    foreach ($chosen_skills as $chosen_skill_array) {
+      foreach ($chosen_skill_array as $key => $skill_name) {
+        if ($machine_name_skill == $skill_name) {
+          $is_chosen = true;
+        }
       }
     }
     if (!$is_chosen) {
