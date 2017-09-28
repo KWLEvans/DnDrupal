@@ -404,6 +404,8 @@ function skills_form_submit($form, &$form_state) {
     }
   }
   $_SESSION['new_character']['skills'] = $skills;
+
+  //Account for H-E Skill Versatility
   if ($_SESSION['new_character']['race'] == 'Half-Elf') {
     $form_state['redirect'] = 'new_character/half_elf_skills';
   } else {
@@ -436,7 +438,13 @@ function half_elf_skills_form() {
 
   $chosen_skills = $_SESSION['new_character']['skills'];
   foreach ($skill_options as $machine_name_skill => $skill_option) {
-    if (!in_array($machine_name_skill, $chosen_skills)) {
+    $is_chosen = false;
+    foreach ($chosen_skills as $key => $skill_name) {
+      if ($machine_name_skill == $skill_name) {
+        $is_chosen = true;
+      }
+    }
+    if (!$is_chosen) {
       $options[$machine_name_skill] = $skill_options[$machine_name_skill];
     }
   }
