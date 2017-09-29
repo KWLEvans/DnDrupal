@@ -377,7 +377,7 @@ function skills_form() {
   foreach ($proficiencies as $proficiency) {
     $options[$proficiency] = $skill_options[$proficiency];
   }
-
+  ksort($options);
 
   //Set number of skills to total skills defined by class
   $range = drupal_map_assoc(array($_SESSION['new_character']['total_skills']));
@@ -408,7 +408,7 @@ function skills_form() {
     $form['skills']['#default_value'] = array('field_intimidation');
     $form['skills']['field_perception'] = array(
       '#disabled' => TRUE,
-    );   
+    );
   }
 
   return $form;
