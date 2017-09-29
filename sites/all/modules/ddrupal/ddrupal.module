@@ -378,6 +378,7 @@ function skills_form() {
     $options[$proficiency] = $skill_options[$proficiency];
   }
 
+
   //Set number of skills to total skills defined by class
   $range = drupal_map_assoc(array($_SESSION['new_character']['total_skills']));
   $number_of_skills = array(FIELD_CARDINALITY_UNLIMITED => t('Unlimited')) + $range;
@@ -396,6 +397,20 @@ function skills_form() {
     '#type' => 'submit',
     '#value' => 'Set Skills',
   );
+
+  //Pre-Select Perception and Intimidation for Elves and Half-Orcs as per racial abilities
+  if (preg_match('/\sElf/', $_SESSION['new_character']['race'])) {
+    $form['skills']['#default_value'] = array('field_perception');
+    $form['skills']['field_perception'] = array(
+      '#disabled' => TRUE,
+    );
+  } else if ($_SESSION['new_character']['race'] == "Half-Orc") {
+    $form['skills']['#default_value'] = array('field_intimidation');
+    $form['skills']['field_perception'] = array(
+      '#disabled' => TRUE,
+    );   
+  }
+
   return $form;
 }
 
@@ -403,22 +418,6 @@ function element_validate_number_of_skills($element) {
   $skills = $element['#value'];
   if (count($skills) != $_SESSION['new_character']['total_skills']) {
     form_error($element, t('You must select ' . $_SESSION['new_character']['total_skills'] . ' skills.'));
-  }
-}
-
-function ddrupal_form_alter(&$form, &$form_state, $form_id) {
-  //Pre-Select Perception and Intimidation for Elves and Half-Orcs as per racial abilities
-  if ($form_id == 'skills_form') {
-    $form['skills']['#default_vaule'] = $form['skills']['#options']['field_perception'];
-    // echo "<pre>";
-    // print_r($form);
-    // echo "</pre>";
-    // exit;
-  //   if (preg_match('/\sElf/', $_SESSION['new_character']['race'])) {
-  //     $form['skills']['#default_value'] = 'edit';
-  //   } else if ($_SESSION['new_character']['race'] == "Half-Orc") {
-  //     $form['skills']['#default_value'] = 1;
-  //   }
   }
 }
 
