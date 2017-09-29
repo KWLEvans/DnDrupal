@@ -409,6 +409,7 @@ function element_validate_number_of_skills($element) {
 function ddrupal_form_alter(&$form, &$form_state, $form_id) {
   //Pre-Select Perception and Intimidation for Elves and Half-Orcs as per racial abilities
   if ($form_id == 'skills_form') {
+    $form['skills']['#default_vaule'] = $form['skills']['#options']['field_perception'];
     echo "<pre>";
     print_r($form);
     echo "</pre>";
