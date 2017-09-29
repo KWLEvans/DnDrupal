@@ -154,8 +154,18 @@ function race_form_submit($race_id) {
 function class_form_submit($class_id) {
     $node = node_load($class_id);
     $skills = array();
+
+    //Add perception and intimidation to Elves and Half-Orcs as per racial abilities
+    if (preg_match('/\sElf/', $_SESSION['new_character']['race'])) {
+      $skills[] = 'field_perception';
+    } else if ($_SESSION['new_character']['race'] == "Half-Orc") {
+      $skills[] = 'field_intimidation';
+    }
+
     foreach ($node->field_skill_proficiency['und'] as $skill_proficiency) {
-      $skills[] = $skill_proficiency['value'];
+      if (!in_array($skill_proficiency['value'], $skills)) {
+        $skills[] = $skill_proficiency['value'];
+      }
     }
 
     $saves = array();
@@ -380,6 +390,7 @@ function skills_form() {
     '#multiple' => TRUE,
     '#required' => TRUE,
     '#element_validate' => array('element_validate_number_of_skills'),
+    '#after_build' => array(racial_skill_modification),
   );
 
   $form['submit'] = array(
@@ -393,6 +404,17 @@ function element_validate_number_of_skills($element) {
   $skills = $element['#value'];
   if (count($skills) != $_SESSION['new_character']['total_skills']) {
     form_error($element, t('You must select ' . $_SESSION['new_character']['total_skills'] . ' skills.'));
+  }
+}
+
+function racial_skill_modification() {
+  //Pre-Select Perception and Intimidation for Elves and Half-Orcs as per racial abilities
+  if (preg_match('/\sElf/', $_SESSION['new_character']['race'])) {
+    $form['skills']['field_perception']['#default_value'] = 1;
+    $form['skills']['field_perception']['#disabled'] = 1;
+  } else if ($_SESSION['new_character']['race'] == "Half-Orc") {
+    $form['skills']['field_intimidation']['#default_value'] = 1;
+    $form['skills']['field_intimidation']['#disabled'] = 1;
   }
 }
 
@@ -437,10 +459,7 @@ function half_elf_skills_form() {
   );
 
   $chosen_skills = $_SESSION['new_character']['skills'];
-  // echo "<pre>";
-  // print_r($chosen_skills);
-  // echo "</pre>";
-  // exit;
+
   foreach ($skill_options as $machine_name_skill => $skill_option) {
     $is_chosen = false;
     foreach ($chosen_skills as $chosen_skill_array) {
@@ -455,13 +474,13 @@ function half_elf_skills_form() {
     }
   }
 
-  //Set number of skills to total skills defined by class
+  //Set number of skills to 2 as per Skill Versatility
   $range = drupal_map_assoc(array(2));
   $number_of_skills = array(FIELD_CARDINALITY_UNLIMITED => t('Unlimited')) + $range;
   $form['field']['cardinality']['#options'] = $number_of_skills;
 
   $form['skills'] = array(
-    '#title' => t('Choose '. $_SESSION['new_character']['total_skills'] . ' skills.'),
+    '#title' => t('As a Half-Elf, your Skill Versatility allows you to choose 2 more skill proficiencies.'),
     '#type' => 'checkboxes',
     '#options' => $options,
     '#multiple' => TRUE,
