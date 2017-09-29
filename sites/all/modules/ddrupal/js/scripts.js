@@ -190,8 +190,11 @@
 
       if (window.location.pathname === '/skills') {
         var checkboxes = $("input:checkbox");
+        console.log(checkboxes);
         for (var i = 0; i < checkboxes; i++) {
+          console.log($(checkboxes[i]));
           if ($(checkboxes[i]).attr('checked')) {
+            console.log(i + " is true");
             $(checkboxes[i]).attr('disabled', 'disabled');
           }
         }
