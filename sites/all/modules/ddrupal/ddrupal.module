@@ -390,7 +390,7 @@ function skills_form() {
     '#multiple' => TRUE,
     '#required' => TRUE,
     '#element_validate' => array('element_validate_number_of_skills'),
-    '#after_build' => array('racial_skill_modification'),
+    '#default_value' => racial_skill_modification(),
   );
 
   $form['submit'] = array(
@@ -410,11 +410,9 @@ function element_validate_number_of_skills($element) {
 function racial_skill_modification() {
   //Pre-Select Perception and Intimidation for Elves and Half-Orcs as per racial abilities
   if (preg_match('/\sElf/', $_SESSION['new_character']['race'])) {
-    $form['skills']['#options']['field_perception']['#default_value'] = 1;
-    $form['skills']['#options']['field_perception']['#disabled'] = 1;
+    return 'field_perception';
   } else if ($_SESSION['new_character']['race'] == "Half-Orc") {
-    $form['skills']['#options']['field_intimidation']['#default_value'] = 1;
-    $form['skills']['#options']['field_intimidation']['#disabled'] = 1;
+    return 'field_intimidation';
   }
 }
 
