@@ -188,7 +188,7 @@
 
       }
 
-      if (window.location.pathname === '/skills') {
+      if (window.location.pathname === 'new_character/skills') {
         var checkboxes = $("input:checkbox");
         console.log(checkboxes);
         for (var i = 0; i < checkboxes; i++) {
