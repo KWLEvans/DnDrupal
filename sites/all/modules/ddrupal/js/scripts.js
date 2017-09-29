@@ -193,6 +193,7 @@
         var checkboxes = $("input:checkbox");
         for (var i = 0; i < checkboxes.length; i++) {
           if ($(checkboxes[i]).attr('checked')) {
+            $(checkboxes[i]).attr('checked', true);
             $(checkboxes[i]).attr('disabled', 'disabled');
           }
         }
