@@ -390,7 +390,7 @@ function skills_form() {
     '#multiple' => TRUE,
     '#required' => TRUE,
     '#element_validate' => array('element_validate_number_of_skills'),
-    '#after_build' => array(racial_skill_modification),
+    '#after_build' => array('racial_skill_modification'),
   );
 
   $form['submit'] = array(
