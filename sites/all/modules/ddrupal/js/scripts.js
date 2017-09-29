@@ -188,13 +188,11 @@
 
       }
 
+      //Disable checkboxes for skills gained from racial abilities
       if (window.location.pathname === '/new_character/skills') {
         var checkboxes = $("input:checkbox");
-        console.log(checkboxes);
         for (var i = 0; i < checkboxes.length; i++) {
-          console.log($(checkboxes[i]));
           if ($(checkboxes[i]).attr('checked')) {
-            console.log(i + " is true");
             $(checkboxes[i]).attr('disabled', 'disabled');
           }
         }
