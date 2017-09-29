@@ -411,14 +411,14 @@ function ddrupal_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'skills_form') {
     echo "<pre>";
     print_r($form);
-    echo '</pre>';
+    echo "</pre>";
     exit;
   //   if (preg_match('/\sElf/', $_SESSION['new_character']['race'])) {
   //     $form['skills']['#default_value'] = 'edit';
   //   } else if ($_SESSION['new_character']['race'] == "Half-Orc") {
   //     $form['skills']['#default_value'] = 1;
   //   }
-  // }
+  }
 }
 
 function skills_form_submit($form, &$form_state) {
